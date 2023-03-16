@@ -1,21 +1,75 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      component: () => import('../views/front/FontLayout.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../views/front/HomeView.vue')
+        },
+        {
+          path: 'about',
+          component: () => import('../views/front/AboutView.vue')
+        },
+        {
+          path: 'products',
+          component: () => import('../views/front/UserProducts.vue')
+        },
+        {
+          path: 'product/:id',
+          component: () => import('../views/front/UserProductDetail.vue')
+        },
+        {
+          path: 'news',
+          component: () => import('../views/front/UserNews.vue')
+        },
+        {
+          path: 'new/:id',
+          component: () => import('../views/front/UserNewDetail.vue')
+        },
+        {
+          path: 'login',
+          component: () => import('../views/front/LoginView.vue')
+        },
+        {
+          path: 'cart',
+          component: () => import('../views/front/UserCart.vue')
+        },
+        {
+          path: 'payment',
+          component: () => import('../views/front/UserPayment.vue')
+        },
+        {
+          path: 'complete',
+          component: () => import('../views/front/UserComplete.vue')
+        },
+      ]
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/admin',
+      component: () => import('../views/admin/DashboardView.vue'),
+      children: [
+        {
+          path: 'products',
+          component: () => import('../views/admin/AdminProducts.vue')
+        },
+        {
+          path: 'orders',
+          component: () => import('../views/admin/AdminOrders.vue')
+        },
+        {
+          path: 'news',
+          component: () => import('../views/admin/AdminNews.vue')
+        },
+        {
+          path: 'coupons',
+          component: () => import('../views/admin/AdminCoupon.vue')
+        },
+      ]
     }
   ]
 })
