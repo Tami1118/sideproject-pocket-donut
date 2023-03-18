@@ -6,12 +6,11 @@
         <div class="row align-items-center">
           <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start py-2">
             <router-link to="/" class="navbar-logo">
-              <img
+              <div
+                :style="{ 'backgroundImage': `url(${brandLogo})` }"
                 class="navbar-logo"
-                style="height: 4rem"
-                src="../../../public/pocket donut_logo(w).png"
-                alt="pocket donut logo"
-              />
+                style="height: 4.5rem"
+              ></div>
             </router-link>
           </div>
           <div class="col-12 col-md-6 py-2">
@@ -50,12 +49,12 @@
   border-top: 0.5px solid #68676c;
 }
 
-.link-active:focus{
+.link-active:focus {
   color: #fff;
   font-weight: 600;
 }
 
-.nav-item:hover .link-active{
+.nav-item:hover .link-active {
   color: #fff;
   font-weight: 600;
 }
@@ -63,7 +62,14 @@
 
 <script>
 import { RouterLink } from 'vue-router'
+import brandLogo from '@/assets/images/pocket donut_logo(w).png'
+
 export default {
+  data() {
+    return {
+      brandLogo:brandLogo,
+    }
+  },
   components: {
     RouterLink
   }

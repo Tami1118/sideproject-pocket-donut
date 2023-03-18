@@ -11,12 +11,11 @@
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
           <router-link to="/" class="navbar-logo">
-            <img
+            <div
+              :style="{ 'backgroundImage': `url(${brandLogo})` }"
               class="navbar-logo"
-              style="height: 4.5rem;"
-              src="../../../public/pocket donut_logo(w).png"
-              alt="pocket donut logo"
-            />
+              style="height: 4.5rem"
+            ></div>
           </router-link>
         </div>
 
@@ -52,20 +51,20 @@
             <ul class="navbar-nav mb-md-0">
               <li class="nav-item m-2">
                 <router-link to="/products" class="nav-link link-active">
-                <div>商品一覽</div>
-                <div class="mt-2" style="font-size: 0.8rem">Product</div>
+                  <div>商品一覽</div>
+                  <div class="mt-2" style="font-size: 0.8rem">Product</div>
                 </router-link>
               </li>
               <li class="nav-item m-2">
                 <router-link to="/news" class="nav-link link-active">
-                <div>最新消息</div>
-                <div class="mt-2" style="font-size: 0.8rem">Hot News</div>
+                  <div>最新消息</div>
+                  <div class="mt-2" style="font-size: 0.8rem">Hot News</div>
                 </router-link>
               </li>
               <li class="nav-item m-2">
                 <router-link to="/about" class="nav-link link-active">
-                <div>關於我們</div>
-                <div class="mt-2" style="font-size: 0.8rem">About</div>
+                  <div>關於我們</div>
+                  <div class="mt-2" style="font-size: 0.8rem">About</div>
                 </router-link>
               </li>
             </ul>
@@ -103,13 +102,17 @@ img,
 </style>
 
 <script>
+import brandLogo from '@/assets/images/pocket donut_logo(w).png'
 import { RouterLink } from 'vue-router'
 
-
 export default {
+  data() {
+    return {
+      brandLogo: brandLogo,
+    }
+  },
   components: {
-    RouterLink,
-    
+    RouterLink
   }
 }
 </script>
