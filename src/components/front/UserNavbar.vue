@@ -102,7 +102,7 @@ img,
 </style>
 
 <script>
-import brandLogo from '@/assets/images/pocket donut_logo(w).png'
+import brandLogo from '../../assets/images/pocket donut_logo(w).png'
 import { RouterLink } from 'vue-router'
 
 export default {
