@@ -6,11 +6,13 @@
         <div class="row align-items-center">
           <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start py-2">
             <router-link to="/" class="navbar-logo">
-              <div
+              <!-- <div
                 :style="{ 'backgroundImage': `url(${brandLogo})` }"
                 class="navbar-logo"
                 style="height: 4.5rem"
-              ></div>
+              ></div> -->
+              <img src="@/assets/images/pocket donut_logo(w).png"
+            style="height: 4rem" alt="">
             </router-link>
           </div>
           <div class="col-12 col-md-6 py-2">
@@ -61,13 +63,13 @@
 </style>
 
 <script>
-import brandLogo from '../../assets/images/pocket donut_logo(w).png'
+// import brandLogo from '../../assets/images/pocket donut_logo(w).png'
 import { RouterLink } from 'vue-router'
 
 export default {
   data() {
     return {
-      brandLogo:brandLogo,
+      // brandLogo:brandLogo,
     }
   },
   components: {
