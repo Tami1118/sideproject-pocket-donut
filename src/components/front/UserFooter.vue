@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer bg-dark mt-3 text-light fw-light">
+  <footer class="footer bg-dark text-light fw-light">
     <!-- footer-navbar -->
     <div class="footer-info py-3 text-white">
       <div class="container">

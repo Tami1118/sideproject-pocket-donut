@@ -1,17 +1,10 @@
 <template>
-  <!--  待補
-        購物車 offcanvas
-        購物車 數量
-
-        搜尋 input
-  -->
   <header class="header position-fixed w-100 bg-primary" style="z-index: 1">
     <div class="container">
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
           <router-link to="/" class="navbar-logo">
-            <img src="@/assets/images/pocket donut_logo(w).png"
-            style="height: 4rem" alt="">
+            <img src="@/assets/images/pocket donut_logo(w).png" style="height: 4rem" alt="" />
           </router-link>
         </div>
 
@@ -20,11 +13,7 @@
           <div class="navbar-button">
             <!-- mobile button cart -->
             <button type="button" class="border-0 bg-transparent position-relative">
-              <span
-                class="badge text-primary bg-white rounded-pill position-absolute top-0 start-100 translate-middle"
-                >20</span
-              >
-              <span class="material-symbols-outlined fs-1">shopping_cart</span>
+              <span class="material-symbols-outlined fs-1"> account_circle </span>
             </button>
             <!-- mobile button menu -->
             <button
@@ -46,21 +35,27 @@
           <div class="d-flex justify-content-center text-center">
             <ul class="navbar-nav mb-md-0">
               <li class="nav-item m-1">
-                <router-link to="/products" class="nav-link link-active">
-                  <div>商品一覽</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Product</div>
+                <router-link to="/admin/products" class="nav-link link-active">
+                  <div>產品管理</div>
+                  <div class="mt-2" style="font-size: 0.8rem">Products</div>
                 </router-link>
               </li>
               <li class="nav-item m-1">
-                <router-link to="/news" class="nav-link link-active">
-                  <div>最新消息</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Hot News</div>
+                <router-link to="/admin/orders" class="nav-link link-active">
+                  <div>訂單管理</div>
+                  <div class="mt-2" style="font-size: 0.8rem">Orders</div>
                 </router-link>
               </li>
               <li class="nav-item m-1">
-                <router-link to="/about" class="nav-link link-active">
-                  <div>關於我們</div>
-                  <div class="mt-2" style="font-size: 0.8rem">About</div>
+                <router-link to="/admin/news" class="nav-link link-active">
+                  <div>消息管理</div>
+                  <div class="mt-2" style="font-size: 0.8rem">News</div>
+                </router-link>
+              </li>
+              <li class="nav-item m-1">
+                <router-link to="/admin/coupons" class="nav-link link-active">
+                  <div>優惠券管理</div>
+                  <div class="mt-2" style="font-size: 0.8rem">Coupons</div>
                 </router-link>
               </li>
             </ul>
@@ -70,11 +65,7 @@
         <!-- PC -->
         <div class="pc d-none d-md-flex">
           <button type="button" class="border-0 bg-transparent position-relative">
-            <span
-              class="badge bg-white text-primary rounded-pill position-absolute top-0 start-100 translate-middle"
-              >20</span
-            >
-            <span class="material-symbols-outlined fs-1">shopping_cart</span>
+            <span class="material-symbols-outlined fs-1"> account_circle </span>
           </button>
         </div>
       </nav>

@@ -75,6 +75,7 @@ export default {
     getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http.get(url).then((res) => {
+        console.log('產品列表', res)
         this.products = res.data.products
       })
     }

@@ -1,6 +1,6 @@
 <template>
   <user-navbar></user-navbar>
-  <router-view style="padding-top: 6rem"></router-view>
+  <router-view style="padding-top: 96px"></router-view>
   <user-footer></user-footer>
 </template>
 

@@ -32,10 +32,6 @@ const router = createRouter({
           component: () => import('../views/front/UserNewDetail.vue')
         },
         {
-          path: 'login',
-          component: () => import('../views/front/LoginView.vue')
-        },
-        {
           path: 'cart',
           component: () => import('../views/front/UserCart.vue')
         },
@@ -48,6 +44,10 @@ const router = createRouter({
           component: () => import('../views/front/UserComplete.vue')
         },
       ]
+    },
+    {
+      path: '/login',
+      component: () => import('../views/front/LoginView.vue')
     },
     {
       path: '/admin',
