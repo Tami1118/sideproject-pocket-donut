@@ -85,3 +85,9 @@ img, button{
 	justify-content: center;
 	align-items: center;
 }
+
+.word-hidden{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

@@ -105,7 +105,7 @@ export default {
   methods: {
     logout(){
       document.cookie = `hexToken=;expires=${new Date()}`;
-      this.$router.push('/login')
+      this.$router.push('/login');
     }
   },
 }

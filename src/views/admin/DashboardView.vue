@@ -1,6 +1,10 @@
 <template>
   <dashboard-navbar></dashboard-navbar>
-  <router-view></router-view>
+  <div class="page-background">
+    <div class="container mt-4">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -22,12 +26,12 @@ export default {
       this.$http.defaults.headers.common['Authorization'] = token;
       const url = `${VITE_URL}/api/user/check`;
       this.$http.post(url)
-        .then(res => {
+        .then(() => {
           console.log('身份驗證成功');
-          if(!res.data.success){
-            this.$router.push('/login');
-            alert('權限不足，請重新登入');
-          }
+        })
+        .catch(() => {
+          alert('權限不足，請重新登入');
+          this.$router.push('/login');
         })
     }
   }

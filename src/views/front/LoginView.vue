@@ -63,6 +63,9 @@
 </template>
 
 <style lang="scss">
+.login-page{
+  height: 100vh;
+}
 .login-image {
   height: 100%;
   width: 100%;
@@ -105,7 +108,7 @@ export default {
         .then((res) => {
           console.log('登入成功', res);
           const { token, expired } = res.data;
-          document.cookie = `hexToken=${token}; expires=${expired}`;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
 
           // 轉跳頁面
           this.$router.push('/admin/products');

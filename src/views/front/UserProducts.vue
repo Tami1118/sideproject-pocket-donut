@@ -36,7 +36,7 @@
                         <select class="form-select rounded-start">
                           <option :value="i" v-for="i in 20" :key="i + 123">{{ i }}</option>
                         </select>
-                        <button type="button" class="btn bg-primary text-white px-4 ms-2">
+                        <button type="button" class="add-cart btn text-white px-4 ms-2">
                           <span class="material-symbols-outlined">add_shopping_cart</span>
                         </button>
                       </div>
@@ -55,6 +55,9 @@
 <style lang="scss">
 .material-symbols-outlined {
   z-index: -1;
+}
+.add-cart{
+  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
 }
 </style>
 

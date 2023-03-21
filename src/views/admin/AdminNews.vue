@@ -1,5 +1,3 @@
 <template>
-  <div>
-    管理者最新消息
-  </div>
+  <div class="text-primary fw-bold fs-5">最新消息 News List</div>
 </template>

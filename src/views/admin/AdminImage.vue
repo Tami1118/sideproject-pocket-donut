@@ -1,39 +1,29 @@
 <template>
-  <div class="page-background">
-    <div class="container">
-      <div class="pt-3">
-        <div class="flex-y-center">
-          <div class="text-primary fw-bold fs-5">圖片上傳 Image Upload</div>
-        </div>
+  <div class="text-primary fw-bold fs-5">圖片上傳 Image Upload</div>
 
-        <div class="col-12 bg-white rounded-3 my-3 shadow-sm">
-          <div class="py-3 px-2">
-            <div class="row">
-              <div class="col-12 col-md-4 d-flex flex-column">
-                <input
-                  type="file"
-                  class="form-control mt-2"
-                  id="file"
-                  placeholder="請上傳圖片檔案"
-                  @change="upload"
-                />
-                <div class="d-flex my-3">
-                  <input type="text" :value="hexImage" class="form-control" id="copy-image" />
-                </div>
-                <div class="btn-group ms-auto">
-                  <button type="button" class="btn btn-outline-primary px-3" @click="copyContent">
-                    <span class="material-symbols-outlined text-primary"> content_paste </span> 複製
-                  </button>
-                  <button type="button" class="btn btn-outline-primary px-3" @click="inputReset">
-                    <span class="material-symbols-outlined text-primary"> delete </span> 刪除
-                  </button>
-                </div>
-              </div>
-              <div class="col-12 col-md-8">
-                <img :src="hexImage" alt="" class="img-fluid" />
-              </div>
-            </div>
+  <div class="col-12 my-3">
+    <div class="p-4 bg-white rounded-3 shadow-sm">
+      <div class="row">
+        <div class="col-12 col-md-4 d-flex flex-column">
+          <input
+            type="file"
+            class="form-control mt-2"
+            id="file"
+            placeholder="請上傳圖片檔案"
+            @change="upload"
+          />
+          <input type="text" :value="hexImage" class="form-control my-3" id="copy-image" />
+          <div class="btn-group ms-auto">
+            <button type="button" class="btn btn-outline-primary px-3" @click="copyContent">
+              <span class="material-symbols-outlined text-primary"> content_paste </span> 複製
+            </button>
+            <button type="button" class="btn btn-outline-primary px-3" @click="inputReset">
+              <span class="material-symbols-outlined text-primary"> delete </span> 刪除
+            </button>
           </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <img :src="hexImage" alt="" class="img-fluid" />
         </div>
       </div>
     </div>
