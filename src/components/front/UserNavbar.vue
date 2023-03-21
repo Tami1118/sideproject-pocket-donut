@@ -10,7 +10,7 @@
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
           <router-link to="/" class="navbar-logo">
-            <img src="@/assets/images/pocket donut_logo(w).png"
+            <img src="https://storage.googleapis.com/vue-course-api.appspot.com/ziyi/1679370005750.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=Kps%2FNPZOKfdIxvuMiPh3WhmT%2BVvr7px9lmoWlyzghI3mgEEnh4lqBKOVhTzKBhXw1bKznqZl4Ueu5byKdbLuxoYgYxPKrMMwS8NKKkZA643klvFOvNNaUTowuz2%2BZvoOLcVt3upWgYG1WzehC4ttT8jRC8fxLXjSkXqxXraWd%2Blx7nmspvwek4nja8ldQA986M8VmUebx%2FL7EfJHzHVZH5ZT2CWM304vZaClAiKrcccwz0dWSUUsfbzm2YRDJz03nv94UQkGjV7NhCyclodkIWzPHvlIIhRi9Q%2FqmLUxMALaAZd6YEPfhNDCW1mH3rJlndGEtMdjMyngFDI7ZvnaNA%3D%3D"
             style="height: 4rem" alt="">
           </router-link>
         </div>

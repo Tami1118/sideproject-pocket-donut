@@ -69,6 +69,10 @@ const router = createRouter({
           path: 'coupons',
           component: () => import('../views/admin/AdminCoupon.vue')
         },
+        {
+          path: 'images',
+          component: () => import('../views/admin/AdminImage.vue')
+        },
       ]
     }
   ]

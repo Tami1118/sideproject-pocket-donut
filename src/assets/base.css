@@ -49,4 +49,39 @@ table {
 }
 img, button{
 	vertical-align: middle;
+	color: transparent;
+}
+
+/* 共用 */
+.page-background{
+	padding-top: 96px;
+	min-height: 100vh;
+	background-color: #fffafa;
+}
+.flex-x-center{
+	display: flex;
+	justify-content: center
+}
+.flex-y-center{
+	display: flex;
+	align-items: center
+}
+.flex-xy-center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.absolute-full{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.item-center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
