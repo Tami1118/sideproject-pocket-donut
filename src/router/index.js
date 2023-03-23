@@ -43,6 +43,10 @@ const router = createRouter({
           path: 'complete',
           component: () => import('../views/front/UserComplete.vue')
         },
+        {
+          path: 'faq',
+          component: () => import('../views/front/FaqView.vue')
+        },
       ]
     },
     {

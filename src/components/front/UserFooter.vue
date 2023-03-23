@@ -4,7 +4,7 @@
     <div class="footer-info py-3 text-white">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start py-2">
+          <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start py-2">
             <router-link to="/" class="navbar-logo">
               <!-- <div
                 :style="{ 'backgroundImage': `url(${brandLogo})` }"
@@ -15,7 +15,7 @@
             style="height: 4rem" alt="">
             </router-link>
           </div>
-          <div class="col-12 col-md-6 py-2">
+          <div class="col-12 col-md-10 py-2">
             <ul class="nav justify-content-center justify-content-md-end">
               <li class="nav-item">
                 <router-link to="/" class="nav-link link-active">首頁</router-link>
@@ -28,6 +28,9 @@
               </li>
               <li class="nav-item">
                 <router-link to="/about" class="nav-link link-active">關於我們</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/faq" class="nav-link link-active">常見問題</router-link>
               </li>
             </ul>
           </div>
