@@ -1,0 +1,1 @@
+import{_ as o,o as e,c as s}from"./index-4ac1f08f.js";const t={},c={class:"text-primary fw-bold fs-5"};function n(r,_){return e(),s("div",c,"優惠券管理 Coupons List")}const f=o(t,[["render",n]]);export{f as default};

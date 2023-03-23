@@ -1,0 +1,1 @@
+import{_ as e,o as r,c as s}from"./index-4ac1f08f.js";const t={},c={class:"text-primary fw-bold fs-5"};function o(n,_){return r(),s("div",c,"訂單列表 Orders List")}const d=e(t,[["render",o]]);export{d as default};
