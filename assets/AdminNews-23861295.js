@@ -1,0 +1,1 @@
+import{_ as e,o as s,c as t}from"./index-c6ca4b97.js";const c={},o={class:"text-primary fw-bold fs-5"};function r(n,_){return s(),t("div",o,"最新消息 News List")}const f=e(c,[["render",r]]);export{f as default};
