@@ -18,6 +18,9 @@
           <div class="col-12 col-md-6 py-2">
             <ul class="nav justify-content-center justify-content-md-end">
               <li class="nav-item">
+                <router-link to="/" class="nav-link link-active">首頁</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/products" class="nav-link link-active">商品一覽</router-link>
               </li>
               <li class="nav-item">
@@ -47,6 +50,9 @@
 </template>
 
 <style lang="scss">
+.footer{
+  z-index: 100;
+}
 .footer-right {
   border-top: 0.5px solid #68676c;
 }
@@ -63,15 +69,9 @@
 </style>
 
 <script>
-// import brandLogo from '../../assets/images/pocket donut_logo(w).png'
 import { RouterLink } from 'vue-router'
 
 export default {
-  data() {
-    return {
-      // brandLogo:brandLogo,
-    }
-  },
   components: {
     RouterLink
   }

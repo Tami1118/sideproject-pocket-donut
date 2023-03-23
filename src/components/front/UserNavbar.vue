@@ -5,7 +5,7 @@
 
         搜尋 input
   -->
-  <header class="header position-fixed w-100 bg-primary" style="z-index: 1">
+  <header class="header position-fixed w-100 bg-primary shadow-sm" style="z-index: 1">
     <div class="container">
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
@@ -45,22 +45,28 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-center" id="navbarText">
           <div class="d-flex justify-content-center text-center">
             <ul class="navbar-nav mb-md-0">
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
+                <router-link to="/" class="nav-link link-active">
+                  <div>首頁</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Home</div>
+                </router-link>
+              </li>
+              <li class="nav-item mx-1">
                 <router-link to="/products" class="nav-link link-active">
                   <div>商品一覽</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Product</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Product</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/news" class="nav-link link-active">
                   <div>最新消息</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Hot News</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Hot News</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/about" class="nav-link link-active">
                   <div>關於我們</div>
-                  <div class="mt-2" style="font-size: 0.8rem">About</div>
+                  <div class="mt-1" style="font-size: 0.8rem">About</div>
                 </router-link>
               </li>
             </ul>

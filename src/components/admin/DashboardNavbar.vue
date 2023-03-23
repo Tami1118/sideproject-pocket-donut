@@ -34,34 +34,34 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-center" id="navbarText">
           <div class="d-flex justify-content-center text-center">
             <ul class="navbar-nav mb-md-0">
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/admin/products" class="nav-link link-active text-primary">
                   <div>產品管理</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Products</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Products</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/admin/orders" class="nav-link link-active text-primary">
                   <div>訂單管理</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Orders</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Orders</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/admin/news" class="nav-link link-active text-primary">
                   <div>文章管理</div>
-                  <div class="mt-2" style="font-size: 0.8rem">News</div>
+                  <div class="mt-1" style="font-size: 0.8rem">News</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/admin/coupons" class="nav-link link-active text-primary">
                   <div>優惠券管理</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Coupons</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Coupons</div>
                 </router-link>
               </li>
-              <li class="nav-item m-1">
+              <li class="nav-item mx-1">
                 <router-link to="/admin/images" class="nav-link link-active text-primary">
                   <div>圖片管理</div>
-                  <div class="mt-2" style="font-size: 0.8rem">Images</div>
+                  <div class="mt-1" style="font-size: 0.8rem">Images</div>
                 </router-link>
               </li>
             </ul>

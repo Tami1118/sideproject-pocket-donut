@@ -30,8 +30,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	font-family: 'Jost','Poppins','Trebuchet MS', 'Noto Sans TC','Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-family: 'Quicksand','Poppins', 'Noto Sans TC','Trebuchet MS','Jost','Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 ol, ul {
 	list-style: none;
 }

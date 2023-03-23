@@ -1,10 +1,9 @@
 <template>
-  <div class="text-primary fw-bold fs-5">圖片上傳 Image Upload</div>
-
-  <div class="col-12 my-3">
-    <div class="p-4 bg-white rounded-3 shadow-sm">
+  <div class="col-6 m-auto">
+    <div class="text-primary fw-bold fs-5">圖片上傳 Image Upload</div>
+    <div class="mt-3 p-4 bg-white rounded-3 shadow-sm">
       <div class="row">
-        <div class="col-12 col-md-4 d-flex flex-column">
+        <div class="col-12 d-flex flex-column">
           <input
             type="file"
             class="form-control mt-2"
@@ -18,12 +17,15 @@
               <span class="material-symbols-outlined text-primary"> content_paste </span> 複製
             </button>
             <button type="button" class="btn btn-outline-primary px-3" @click="inputReset">
-              <span class="material-symbols-outlined text-primary"> delete </span> 刪除
+              <span class="material-symbols-outlined text-primary"> delete </span> 清除
             </button>
           </div>
         </div>
-        <div class="col-12 col-md-8">
-          <img :src="hexImage" alt="" class="img-fluid" />
+        <div class="col-12 mt-3">
+          <div v-if="!hexImage">請選擇圖片</div>
+          <div v-else>
+            <img :src="hexImage" alt="" class="img-fluid" />
+          </div>
         </div>
       </div>
     </div>
