@@ -122,19 +122,6 @@
   </div>
 </template>
 
-<style lang="scss">
-.post-product {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50px;
-  box-shadow: 3px 3px 20px #be0e3d6e;
-}
-</style>
-
 <script>
 import Modal from 'bootstrap/js/dist/modal'
 

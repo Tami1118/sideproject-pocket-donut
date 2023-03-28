@@ -1,0 +1,43 @@
+@import './base.css';
+
+img,
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+/* modal */
+.admin-item-list:nth-child(odd) {
+  background-color: #ebf3fc;
+}
+
+.btn-updata {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 4rem;
+  aspect-ratio: 1/1;
+  border-radius: 50px;
+  box-shadow: 3px 3px 20px #be0e3d6e;
+}
+
+.btn-linear{
+  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
+}
+
+.ck-editor__editable {
+  min-height: 200px;
+}
+
+.modal-pic-area{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.modal-pic-area> .modal-item{
+  margin-top: auto;
+}
+.modal-pic-img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}

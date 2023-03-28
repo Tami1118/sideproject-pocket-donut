@@ -3,8 +3,12 @@
     <div class="container">
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
-          <router-link to="/" class="navbar-logo">
-            <img src="https://storage.googleapis.com/vue-course-api.appspot.com/ziyi/1679379672763.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=mgVnhBJyCU%2FxiMRP44hcgOwDpb9p9cE3%2Fxw3gnfRCMUjNJJcY%2FO1X%2F5zs4UNzusSS3MKbsTcxp6N64bN5VB9JsVnTfTmEdJLkUlJUY3zVWTPKA6NThrOKFmmYoL2cDNGoJaPoygtV7Ogh5t2YwKEqu%2Bg%2BeVwAzQwX2PQ2jDTgnlHsRF6VBAgjmqjdoe6xrXLh%2BtFwTNc%2FBb868nF3UyfUMsdQcR8djhnCXJ3DsBojLkJP%2BUl1wpKJ4f6kXTWFjcxccpiTL6wEFFLjnszNz27IVQbecAGaL6cjd7%2B9YESu%2FqsaE1UMUNjo7GuFAsyZldEHX0MBnx58oBxRtCaoeQ%2BfQ%3D%3D" style="height: 4rem" alt="" />
+          <router-link to="/admin" class="navbar-logo">
+            <img
+              src="https://storage.googleapis.com/vue-course-api.appspot.com/ziyi/1679379672763.png?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=mgVnhBJyCU%2FxiMRP44hcgOwDpb9p9cE3%2Fxw3gnfRCMUjNJJcY%2FO1X%2F5zs4UNzusSS3MKbsTcxp6N64bN5VB9JsVnTfTmEdJLkUlJUY3zVWTPKA6NThrOKFmmYoL2cDNGoJaPoygtV7Ogh5t2YwKEqu%2Bg%2BeVwAzQwX2PQ2jDTgnlHsRF6VBAgjmqjdoe6xrXLh%2BtFwTNc%2FBb868nF3UyfUMsdQcR8djhnCXJ3DsBojLkJP%2BUl1wpKJ4f6kXTWFjcxccpiTL6wEFFLjnszNz27IVQbecAGaL6cjd7%2B9YESu%2FqsaE1UMUNjo7GuFAsyZldEHX0MBnx58oBxRtCaoeQ%2BfQ%3D%3D"
+              style="height: 4rem"
+              alt=""
+            />
           </router-link>
         </div>
 
@@ -12,13 +16,17 @@
         <div class="mobile d-flex d-md-none">
           <div class="navbar-button">
             <!-- mobile button cart -->
-            <button type="button" class="border-0 bg-transparent position-relative" @click="logout">
+            <button
+              type="button"
+              class="navbar_button_cart border-0 bg-transparent position-relative"
+              @click="logout"
+            >
               <span class="material-symbols-outlined fs-1 text-primary"> account_circle </span>
             </button>
             <!-- mobile button menu -->
             <button
               type="button"
-              class="border-0 bg-transparent ms-3"
+              class="navbar_button_menu border-0 bg-transparent ms-3"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"
               aria-controls="navbarText"
@@ -79,23 +87,9 @@
   </header>
 </template>
 
-<style lang="scss">
-img,
-.material-symbols-outlined {
-  vertical-align: middle;
-}
-
-.nav-item > a {
-  color: #fff;
-}
-
-.material-symbols-outlined {
-  color: #fff;
-}
-</style>
-
 <script>
-// import brandLogo from '../../assets/images/pocket donut_logo(w).png'
+// 補:按下連結後自動收縮
+
 import { RouterLink } from 'vue-router'
 
 export default {
@@ -103,11 +97,10 @@ export default {
     RouterLink
   },
   methods: {
-    logout(){
-      document.cookie = `hexToken=;expires=${new Date()}`;
-      this.$router.push('/login');
+    logout() {
+      document.cookie = `hexToken=;expires=${new Date()}`
+      this.$router.push('/login')
     }
-  },
+  }
 }
-
 </script>

@@ -86,7 +86,7 @@
 
 <script>
 const { VITE_URL } = import.meta.env
-import UserNavbar from '../../components/front/UserNavbar.vue'
+import UserNavbar from '../components/front/UserNavbar.vue'
 
 export default {
   components: {
@@ -111,7 +111,7 @@ export default {
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
 
           // 轉跳頁面
-          this.$router.push('/admin/products');
+          this.$router.push('/admin');
         })
         .catch(() => {
           alert('登入失敗，請重新登入');

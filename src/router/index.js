@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/front/FontLayout.vue'),
+      component: () => import('../views/FontLayout.vue'),
       children: [
         {
           path: '',
@@ -17,31 +17,31 @@ const router = createRouter({
         },
         {
           path: 'products',
-          component: () => import('../views/front/UserProducts.vue')
+          component: () => import('../views/front/ProductsView.vue')
         },
         {
           path: 'product/:id',
-          component: () => import('../views/front/UserProductDetail.vue')
+          component: () => import('../views/front/ProductDetail.vue')
         },
         {
           path: 'news',
-          component: () => import('../views/front/UserNews.vue')
+          component: () => import('../views/front/NewsView.vue')
         },
         {
           path: 'new/:id',
-          component: () => import('../views/front/UserNewDetail.vue')
+          component: () => import('../views/front/NewDetail.vue')
         },
         {
           path: 'cart',
-          component: () => import('../views/front/UserCart.vue')
+          component: () => import('../views/front/CartView.vue')
         },
         {
           path: 'payment',
-          component: () => import('../views/front/UserPayment.vue')
+          component: () => import('../views/front/PaymentView.vue')
         },
         {
           path: 'complete',
-          component: () => import('../views/front/UserComplete.vue')
+          component: () => import('../views/front/CompleteView.vue')
         },
         {
           path: 'faq',
@@ -51,11 +51,11 @@ const router = createRouter({
     },
     {
       path: '/login',
-      component: () => import('../views/front/LoginView.vue')
+      component: () => import('../views/LoginView.vue')
     },
     {
       path: '/admin',
-      component: () => import('../views/admin/DashboardView.vue'),
+      component: () => import('../views/DashboardView.vue'),
       children: [
         {
           path: 'products',
@@ -71,7 +71,7 @@ const router = createRouter({
         },
         {
           path: 'coupons',
-          component: () => import('../views/admin/AdminCoupon.vue')
+          component: () => import('../views/admin/AdminCoupons.vue')
         },
         {
           path: 'images',

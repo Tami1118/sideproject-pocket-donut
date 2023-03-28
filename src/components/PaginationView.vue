@@ -1,9 +1,9 @@
 <template>
   <div class="my-3 flex-xy-center">
-    <nav aria-label="Products's Pagination">
+    <nav aria-label="Pagination">
       <ul class="pagination">
         <li class="page-item" :class="{ disabled: !pages.has_pre }">
-          <a class="page-link" @click.prevent="getProducts(pages.current_page - 1)">上一頁</a>
+          <a class="page-link" @click.prevent="getList(pages.current_page - 1)">上一頁</a>
         </li>
 
         <li
@@ -12,11 +12,11 @@
           v-for="page in pages.total_pages"
           :key="page + 123"
         >
-          <a class="page-link" @click.prevent="getProducts(page)">{{ page }}</a>
+          <a class="page-link" @click.prevent="getList(page)">{{ page }}</a>
         </li>
 
         <li class="page-item" :class="{ disabled: !pages.has_next }">
-          <a class="page-link" @click.prevent="getProducts(pages.current_page + 1)">下一頁</a>
+          <a class="page-link" @click.prevent="getList(pages.current_page + 1)">下一頁</a>
         </li>
       </ul>
     </nav>
@@ -25,6 +25,6 @@
 
 <script>
 export default {
-  props: ['pages', 'getProducts']
+  props: ['pages', 'getList']
 }
 </script>

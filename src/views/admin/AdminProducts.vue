@@ -5,7 +5,7 @@
 
 
 <script>
-import AdminProductsList from '../../components/admin/AdminProductsList.vue'
+import AdminProductsList from '../../components/admin/ProductsList.vue'
 
 export default {
   components: {

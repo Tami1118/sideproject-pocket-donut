@@ -3,7 +3,7 @@
     <!-- 排序 -->
     <div class="col-3 ms-auto">
       <div class="flex-xy-center mt-3">
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Products Range">
           <option selected>排序</option>
           <option value="new">最新產品</option>
           <option value="old">最舊產品</option>
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <div class="product-list-card rounded-2 px-3" v-for="item in products" :key="item.id">
+        <div class="admin-item-list rounded-2 px-3" v-for="item in products" :key="item.id">
           <div class="row align-items-center">
             <div class="col-2 py-3">
               {{ item.category }}
@@ -69,13 +69,13 @@
         </div>
       </div>
     </div>
-    <PaginationView :pages="pagination" :get-products="getProducts"></PaginationView>
+    <PaginationView :pages="pagination" :get-list="getList"></PaginationView>
   </div>
 
   <!-- productModal -->
   <button
     type="button"
-    class="post-product border-0 flex-xy-center"
+    class="btn-updata btn-linear border-0 flex-xy-center"
     data-bs-toggle="modal"
     data-bs-target="#productModal"
     @click="openModal('create', item)"
@@ -257,24 +257,8 @@
   <!-- delProductModal -->
 </template>
 
-<style lang="scss">
-.product-list-card:nth-child(odd) {
-  background-color: #ebf3fc;
-}
-.post-product {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50px;
-  box-shadow: 3px 3px 20px #be0e3d6e;
-}
-</style>
-
 <script>
-import PaginationView from '../../components/PaginationView.vue'
+import PaginationView from '../PaginationView.vue'
 import Modal from 'bootstrap/js/dist/modal'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -301,9 +285,7 @@ export default {
   methods: {
     getProducts(pagination = 1) {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/products/?page=${pagination}`
-      this.$http
-        .get(url)
-        .then((res) => {
+      this.$http.get(url).then((res) => {
           console.log('產品列表', res)
           this.products = res.data.products
           this.pagination = res.data.pagination
@@ -314,19 +296,20 @@ export default {
     },
     openModal(status, item) {
       if (status === 'create') {
-        console.log('create', item);
+        // console.log('create', item);
         this.isNew = true;
         this.productModalEl.show();
         this.tempProduct = {
           imagesUrl: []
         };
       } else if (status === 'edit') {
-        console.log('edit', item);
+        // console.log('edit', item);
         this.isNew = false;
         this.productModalEl.show();
         this.tempProduct = JSON.parse(JSON.stringify(item));
       } else if (status === 'delete') {
-        console.log('delete', item);
+        // console.log('delete', item);
+        // this.delModal.show();
         this.tempProduct = JSON.parse(JSON.stringify(item));
       }
     },
@@ -339,11 +322,12 @@ export default {
         method = 'put'
       }
 
-      this.$http[method](url, { data: this.tempProduct }).then((res) => {
-        console.log(res)
-        this.getProducts()
-        this.productModalEl.hide()
-      })
+      this.$http[method](url, { data: this.tempProduct })
+        .then((res) => {
+          console.log(res)
+          this.getProducts()
+          this.productModalEl.hide()
+        })
     },
     deleteItem(id) {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`
