@@ -22,6 +22,7 @@ import { faCircleDollarToSlot } from '@fortawesome/free-solid-svg-icons'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 
 
+
 // #2. const要在import後面
 const app = createApp(App)
 

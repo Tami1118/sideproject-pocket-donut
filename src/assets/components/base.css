@@ -1,94 +1,46 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@import './base.css';
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-	font-family: 'Quicksand','Poppins', 'Noto Sans TC','Trebuchet MS','Jost','Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+img,
+.material-symbols-outlined {
+  vertical-align: middle;
 }
 
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-img, button{
-	vertical-align: middle;
-	color: transparent;
+/* modal */
+.admin_item_list:nth-child(odd) {
+  background-color: #ebf3fc;
 }
 
-/* 共用 */
-.page-background{
-	padding-top: 96px;
-	min-height: 100vh;
-	background-color: #fffafa;
-}
-.flex-x-center{
-	display: flex;
-	justify-content: center
-}
-.flex-y-center{
-	display: flex;
-	align-items: center
-}
-.flex-xy-center{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.admin_btn_updata {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 4rem;
+  aspect-ratio: 1/1;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  box-shadow: 3px 3px 20px #be0e3d6e;
+  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
 }
 
-.absolute-full{
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+.btn_linear{
+  background-image: linear-gradient(to right bottom, #d6426a 30%, #be0e3d 70%);
 }
 
-.item-center{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.ck-editor__editable {
+  min-height: 200px;
 }
 
-.word-hidden{
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.modal-pic-area{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.modal-pic-area> .modal-item{
+  margin-top: auto;
+}
+.modal-pic-img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
 }
