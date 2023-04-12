@@ -1,15 +1,15 @@
 <template>
   <div class="text-primary fw-bold fs-5">最新消息 News List</div>
-  <AdminNews></AdminNews>
+  <NewsList></NewsList>
   
 </template>
 
 <script>
-import AdminNews from '../../components/admin/NewsList.vue'
+import NewsList from '../../components/admin/NewsList.vue'
 
 export default {
   components: {
-    AdminNews
+    NewsList
   }
 }
 </script>

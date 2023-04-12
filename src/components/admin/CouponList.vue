@@ -1,9 +1,9 @@
 <template>
-  <!-- sortBy -->
+  <!-- SortBy -->
   <div class="admin_sortby">
     <div class="col-3 ms-auto">
       <div class="flex-xy-center mt-3">
-        <select class="form-select" aria-label="News Range">
+        <select class="form-select" aria-label="Coupons Range">
           <option selected>排序</option>
           <option value="new">最新優惠</option>
           <option value="old">到期日</option>
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <!-- list -->
+  <!-- List -->
   <div class="admin_list">
     <div class="col-12 my-3">
       <div class="p-4 bg-white rounded-3 shadow-sm">
@@ -57,177 +57,176 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- Pagination -->
+  <PaginationView :pages="pagination" :get-list="getCoupons"></PaginationView>
 
-    <!-- pagination -->
-    <PaginationViewVue :pages="pagination" :get-list="getCoupons"></PaginationViewVue>
+  <!-- CouponModal -->
+  <!-- Button trigger modal -->
+  <button type="button" class="admin_btn_updata" @click="openModal('create')">
+    <span class="material-symbols-outlined fs-1"> add </span>
+  </button>
 
-    <!-- CouponModal -->
-    <!-- Button trigger modal -->
-    <button type="button" class="admin_btn_updata" @click="openModal('create')">
-      <span class="material-symbols-outlined fs-1"> add </span>
-    </button>
-
-    <!-- Modal -->
-    <!-- title, percent, due_date, code必填 -->
-    <div
-      class="modal fade"
-      id="couponModal"
-      ref="couponModal"
-      tabindex="-1"
-      aria-labelledby="couponModal"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="couponModal">
-              {{ isNew ? '新增優惠券' : '編輯優惠券' }}
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <VForm v-slot="{ errors }">
-              <div class="row">
-                <!-- 是否啟用、標題、折扣、折扣代碼、折扣條件、開始日期、截止日期 -->
-                <div class="col-12">
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsCode">
-                      折扣代碼 <span class="text-danger">*</span>
-                    </label>
-                    <VField
-                      type="text"
-                      class="form-control"
-                      id="couponsCode"
-                      name="折扣代碼"
-                      :class="{ 'is-invalid': errors['折扣代碼'] }"
-                      placeholder="請輸入折扣代碼"
-                      rules="required"
-                      v-model="tempCoupon.code"
-                    >
-                    </VField>
-                    <ErrorMessage name="折扣代碼" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsTitle">
-                      優惠名稱 <span class="text-danger">*</span>
-                    </label>
-                    <VField
-                      type="text"
-                      class="form-control"
-                      id="couponsTitle"
-                      name="優惠名稱"
-                      :class="{ 'is-invalid': errors['優惠名稱'] }"
-                      placeholder="請輸入優惠名稱"
-                      rules="required"
-                      v-model="tempCoupon.title"
-                    ></VField>
-                    <ErrorMessage name="優惠名稱" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsDate">
-                      到期日 <span class="text-danger">*</span>
-                    </label>
-                    <VField
-                      type="date"
-                      class="form-control"
-                      id="couponsDate"
-                      name="到期日"
-                      :class="{ 'is-invalid': errors['到期日'] }"
-                      rules="required"
-                      v-model="due_date"
-                    ></VField>
-                    <ErrorMessage name="到期日" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsPercent">
-                      折扣百分比 <span class="text-danger">*</span>
-                    </label>
-                    <VField
-                      type="number"
-                      class="form-control"
-                      id="couponsPercent"
-                      name="折扣百分比"
-                      :class="{ 'is-invalid': errors['折扣百分比'] }"
-                      placeholder="請輸入折扣百分比"
-                      rules="required"
-                      v-model.number="tempCoupon.percent"
-                    ></VField>
-                    <ErrorMessage name="折扣百分比" class="invalid-feedback"></ErrorMessage>
-                  </div>
-                  <hr />
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsRule">折扣條件</label>
-                    <input
-                      class="form-control"
-                      id="couponsRule"
-                      type="text"
-                      v-model="tempCoupon.rule"
-                    />
-                  </div>
-                  <div class="modal-item mb-3">
-                    <label class="form-label" for="couponsNum">數量</label>
-                    <input
-                      class="form-control"
-                      id="couponsNum"
-                      type="number"
-                      v-model.number="tempCoupon.num"
-                    />
-                  </div>
-                  <div class="modal-item mb-3">
-                    <input
-                      class="form-check-input"
-                      id="coupons"
-                      type="checkbox"
-                      v-model="tempCoupon.is_enabled"
-                      :true-value="1"
-                      :false-value="0"
-                    />
-                    <label class="form-label ms-2" for="coupons"> 是否啟用 </label>
-                  </div>
+  <!-- Modal -->
+  <!-- title, percent, due_date, code必填 -->
+  <div
+    class="modal fade"
+    id="couponModal"
+    ref="couponModal"
+    tabindex="-1"
+    aria-labelledby="couponModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ isNew ? '新增優惠券' : '編輯優惠券' }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <VForm v-slot="{ errors }">
+            <div class="row">
+              <!-- 是否啟用、標題、折扣、折扣代碼、折扣條件、開始日期、截止日期 -->
+              <div class="col-12">
+                <div class="modal_item">
+                  <label class="form-label" for="couponsCode">
+                    折扣代碼 <span class="text-danger">*</span>
+                  </label>
+                  <VField
+                    type="text"
+                    class="form-control"
+                    id="couponCode"
+                    name="折扣代碼"
+                    :class="{ 'is-invalid': errors['折扣代碼'] }"
+                    placeholder="請輸入折扣代碼"
+                    rules="required"
+                    v-model="tempCoupon.code"
+                  >
+                  </VField>
+                  <ErrorMessage name="折扣代碼" class="invalid-feedback"></ErrorMessage>
+                </div>
+                <div class="modal_item">
+                  <label class="form-label" for="couponTitle">
+                    優惠名稱 <span class="text-danger">*</span>
+                  </label>
+                  <VField
+                    type="text"
+                    class="form-control"
+                    id="couponTitle"
+                    name="優惠名稱"
+                    :class="{ 'is-invalid': errors['優惠名稱'] }"
+                    placeholder="請輸入優惠名稱"
+                    rules="required"
+                    v-model="tempCoupon.title"
+                  ></VField>
+                  <ErrorMessage name="優惠名稱" class="invalid-feedback"></ErrorMessage>
+                </div>
+                <div class="modal_item">
+                  <label class="form-label" for="couponDate">
+                    到期日 <span class="text-danger">*</span>
+                  </label>
+                  <VField
+                    type="date"
+                    class="form-control"
+                    id="couponDate"
+                    name="到期日"
+                    :class="{ 'is-invalid': errors['到期日'] }"
+                    rules="required"
+                    v-model="due_date"
+                  ></VField>
+                  <ErrorMessage name="到期日" class="invalid-feedback"></ErrorMessage>
+                </div>
+                <div class="modal_item">
+                  <label class="form-label" for="couponPercent">
+                    折扣百分比 <span class="text-danger">*</span>
+                  </label>
+                  <VField
+                    type="number"
+                    class="form-control"
+                    id="couponPercent"
+                    name="折扣百分比"
+                    :class="{ 'is-invalid': errors['折扣百分比'] }"
+                    placeholder="請輸入折扣百分比"
+                    rules="required"
+                    v-model.number="tempCoupon.percent"
+                  ></VField>
+                  <ErrorMessage name="折扣百分比" class="invalid-feedback"></ErrorMessage>
+                </div>
+                <hr />
+                <div class="modal_item">
+                  <label class="form-label" for="couponRule">折扣條件</label>
+                  <input
+                    class="form-control"
+                    id="couponRule"
+                    type="text"
+                    v-model="tempCoupon.rule"
+                  />
+                </div>
+                <div class="modal_item">
+                  <label class="form-label" for="couponNum">數量</label>
+                  <input
+                    class="form-control"
+                    id="couponNum"
+                    type="number"
+                    v-model.number="tempCoupon.num"
+                  />
+                </div>
+                <div class="modal_item">
+                  <input
+                    class="form-check-input"
+                    id="coupon"
+                    type="checkbox"
+                    v-model="tempCoupon.is_enabled"
+                    :true-value="1"
+                    :false-value="0"
+                  />
+                  <label class="form-label ms-2" for="couponEnabled"> 是否啟用 </label>
                 </div>
               </div>
-            </VForm>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-            <button class="btn btn-primary" @click="updataCoupon">
-              {{ isNew ? '新增' : '更新' }}
-            </button>
-          </div>
+            </div>
+          </VForm>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button class="btn btn-primary" @click="updataCoupon">
+            {{ isNew ? '新增' : '更新' }}
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- delCouponModal -->
-    <div
-      class="modal fade"
-      id="delCouponModal"
-      ref="delCouponModal"
-      tabindex="-1"
-      aria-labelledby="delCouponModal"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="delCouponModal">確定要刪除？</h5>
-          </div>
-          <div class="modal-body">
-            刪除後的優惠券無法復原，確定要刪除
-            <span class="text-primary fw-bold">{{ tempCoupon.title }}</span
-            >？
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="removeCoupon(tempCoupon)">
-              刪除
-            </button>
-          </div>
+  <!-- delCouponModal -->
+  <div
+    class="modal fade"
+    id="delCouponModal"
+    ref="delCouponModal"
+    tabindex="-1"
+    aria-labelledby="delCouponModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">確定要刪除？</h5>
+        </div>
+        <div class="modal-body">
+          刪除後的優惠券無法復原，確定要刪除
+          <span class="text-primary fw-bold">{{ tempCoupon.title }}</span
+          >？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" @click="removeCoupon(tempCoupon)">
+            刪除
+          </button>
         </div>
       </div>
     </div>
@@ -236,7 +235,7 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
-import PaginationViewVue from '../PaginationView.vue'
+import PaginationView from '../PaginationView.vue'
 import Modal from 'bootstrap/js/dist/modal'
 import Toast from '@/mixins/toast.js'
 
@@ -255,7 +254,7 @@ export default {
     }
   },
   components: {
-    PaginationViewVue
+    PaginationView
   },
   mounted() {
     this.getCoupons()
@@ -266,12 +265,20 @@ export default {
     // 取得優惠券列表
     getCoupons(pagination = 1) {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/coupons/?page=${pagination}`
-      this.$http.get(url).then((res) => {
-        console.log('優惠券列表', res)
-        const { coupons, pagination } = res.data
-        this.coupons = coupons
-        this.pagination = pagination
-      })
+      this.$http
+        .get(url)
+        .then((res) => {
+          console.log('優惠券列表', res)
+          const { coupons, pagination } = res.data
+          this.coupons = coupons
+          this.pagination = pagination
+        })
+        .catch(() => {
+          Toast.fire({
+            title: '無法取得資料',
+            icon: 'error'
+          })
+        })
     },
 
     // 開啟優惠券modal/delModal
@@ -323,7 +330,7 @@ export default {
         })
     },
 
-    // 移除優惠券
+    // 刪除單一優惠券
     removeCoupon(coupon) {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${coupon.id}`
       this.$http

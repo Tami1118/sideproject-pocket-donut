@@ -11,6 +11,7 @@
 const { VITE_URL } = import.meta.env
 import { RouterView } from 'vue-router'
 import AdminNavbar from '../components/admin/AdminNavbar.vue'
+import Toast from '@/mixins/toast.js'
 
 export default {
   components: {
@@ -32,13 +33,19 @@ export default {
       const url = `${VITE_URL}/api/user/check`
       this.$http
         .post(url)
-        .then(res => {
-          if(!res.data.success){
-            // res.data.success不為 true, 回到login頁面
-            this.$router.push('/login');
-          }else{
-            this.status = true;
+        .then((res) => {
+          if (!res.data.success) {
+            this.$router.push('/login')
+          } else {
+            this.status = true
           }
+        })
+        .catch(() => {
+          this.$router.push('/login')
+          Toast.fire({
+            icon: 'warning',
+            title: '權限不足，請重新登入'
+          })
         })
     }
   }

@@ -5,7 +5,7 @@
 
         搜尋 input
   -->
-  <header class="header position-fixed w-100 bg-primary shadow-sm" style="z-index: 1">
+  <header class="header position-fixed w-100 bg-primary shadow-sm" style="z-index: 100">
     <div class="container">
       <nav class="navbar navbar-expand-md py-3 d-flex">
         <div class="navbar-logo">
@@ -22,7 +22,7 @@
             <button type="button" class="border-0 bg-transparent position-relative">
               <span
                 class="badge text-primary bg-white rounded-pill position-absolute top-0 start-100 translate-middle"
-                >20</span
+                >{{ cartNum }}</span
               >
               <span class="material-symbols-outlined fs-1">shopping_cart</span>
             </button>
@@ -78,7 +78,7 @@
           <button type="button" class="border-0 bg-transparent position-relative">
             <span
               class="badge bg-white text-primary rounded-pill position-absolute top-0 start-100 translate-middle"
-              >20</span
+              >{{ cartNum }}</span
             >
             <span class="material-symbols-outlined fs-1">shopping_cart</span>
           </button>
@@ -104,17 +104,19 @@ img,
 </style>
 
 <script>
-// import brandLogo from '../../assets/images/pocket donut_logo(w).png'
 import { RouterLink } from 'vue-router'
+import { mapActions, mapState } from 'pinia'
+import cartStore from '@/stores/cartStore'
 
 export default {
-  data() {
-    return {
-      // brandLogo: brandLogo,
-    }
-  },
   components: {
     RouterLink
+  },
+  methods: {
+    ...mapActions(cartStore, ['getCart'])
+  },
+  computed: {
+    ...mapState(cartStore, ['cartNum'])
   }
 }
 </script>
