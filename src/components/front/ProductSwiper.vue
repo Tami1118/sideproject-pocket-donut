@@ -54,12 +54,6 @@
       </RouterLink>
     </swiper-slide>
   </swiper>
-
-  <div class="d-flex justify-content-center mt-4">
-    <button type="button" class="section_button btn btn-outline-primary text-primary">
-      查看更多商品
-    </button>
-  </div>
 </template>
 
 <style lang="scss">

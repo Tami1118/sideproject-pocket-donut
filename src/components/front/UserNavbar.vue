@@ -19,16 +19,15 @@
         <div class="mobile d-flex d-md-none">
           <div class="navbar-button">
             <!-- mobile button cart -->
-            <button type="button" class="border-0 bg-transparent position-relative">
+            <RouterLink to="/cart" type="button" class="border-0 bg-transparent position-relative">
               <span
                 class="badge text-primary bg-white rounded-pill position-absolute top-0 start-100 translate-middle"
                 >{{ cartNum }}</span
               >
               <span class="material-symbols-outlined fs-1">shopping_cart</span>
-            </button>
+            </RouterLink>
             <!-- mobile button menu -->
             <button
-              type="button"
               class="border-0 bg-transparent ms-3"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"
@@ -75,13 +74,13 @@
 
         <!-- PC -->
         <div class="pc d-none d-md-flex">
-          <button type="button" class="border-0 bg-transparent position-relative">
+          <RouterLink to="/cart" class="border-0 bg-transparent position-relative">
             <span
               class="badge bg-white text-primary rounded-pill position-absolute top-0 start-100 translate-middle"
               >{{ cartNum }}</span
             >
             <span class="material-symbols-outlined fs-1">shopping_cart</span>
-          </button>
+          </RouterLink>
         </div>
       </nav>
     </div>
