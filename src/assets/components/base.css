@@ -6,6 +6,7 @@
   --gray: #edf3f9;
 }
 
+
 img,
 .material-symbols-outlined {
   vertical-align: middle;
@@ -84,59 +85,3 @@ img,
 .section_title_en{
   font-size: 1.2rem;
 }
-
-.step_group {
-  display: flex;
-  justify-content: center;
-}
-.step_group li + li {
-  margin-left: 100px;
-}
-.step_item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-.step_num {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: var(--gray);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: .5rem;
-  font-weight: none;
-}
-.step_text{
-  color: var(--gray);
-}
-.step_group li + li::before {
-  content: '';
-  display: block;
-  width: 130px;
-  height: 2px;
-  background-color: var(--gray);
-  position: absolute;
-  top: 30%;
-  bottom: 0;
-  left: -120px;
-  z-index: -1;
-}
-
-.step_group .active>.step_num {
-  background-color: var(--primary);
-  font-weight: 700;
-}
-.step_group .active>.step_text{
-  color: var(--primary);
-  font-weight: 700;
-}
-.step_group .active > li::before{
-  background-color: var(--primary);
-}
-
-/* Compomnent */
-/*  */

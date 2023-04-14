@@ -2,7 +2,7 @@
   <main>
     <div class="container my-5">
       <!-- 購物車時間軸 -->
-      <CartTimeLine></CartTimeLine>
+      <CartTimeLine :step="step"></CartTimeLine>
 
       <!-- 訂單成立資訊 -->
       <div class="complete_info mb-4" style="width: 100%">
@@ -20,30 +20,27 @@
 </template>
 
 <script>
-const { VITE_URL, VITE_PATH } = import.meta.env
+import { mapActions, mapState } from 'pinia'
+import orderStore from '../../stores/orderStore'
 import CartTimeLine from '../../components/front/CartTimeLine.vue'
 
 export default {
   data(){
     return {
-      orderId: ''
+      step: 4,
     }
   },
   components: {
     CartTimeLine
   },
   mounted(){
-    this.getOrderId()
+    this.getOrder()
   },
   methods: {
-    getOrderId(){
-      const {orderId} = this.$route.params
-      const url = `${VITE_URL}/api/${VITE_PATH}/order/${orderId}`
-      this.$http.get(url)
-        .then(res => {
-          console.log('訂單成立頁面',res)
-        })
-    }
+    ...mapActions(orderStore, ['getOrder'])
+  },
+  computed: {
+    ...mapState(orderStore, ['order','products','user'])
   }
 }
 </script>

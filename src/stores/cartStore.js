@@ -1,7 +1,7 @@
 const { VITE_URL, VITE_PATH } = import.meta.env
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import Toast from '@/mixins/toast'
+import Toast from '@/mixins/toast.js'
 
 export default defineStore('cart', {
   state: () => {
@@ -20,11 +20,11 @@ export default defineStore('cart', {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
       axios.get(url)
         .then(res => {
+          this.cartNum = res.data.data.carts.reduce((pre, cart) => pre + cart.qty, 0)
           console.log('取得購物車列表:', res)
           this.cart = res.data.data
           this.total = res.data.data.total
           this.final_total = res.data.data.final_total
-          this.cartNum = res.data.data.carts.reduce((pre, cart) => pre + cart.qty, 0)
         })
         .catch(err => {
           console.log(err)
@@ -64,45 +64,59 @@ export default defineStore('cart', {
         product_id: item.product.id,
         qty: item.qty
       }
-      axios.put(url, { data }).then(res => {
-        console.log('更新數量:', res)
-        this.loadingItem = ''
-        this.getCart()
-      })
+      axios.put(url, { data })
+        .then(res => {
+          console.log('更新數量:', res)
+          this.loadingItem = ''
+          this.getCart()
+        })
     },
 
     // 刪除購物車單一品項
     removeCartItem(id) {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart/${id}`
-      axios.delete(url).then(res => {
-        console.log(res)
-        this.getCart()
-        Toast.fire({
-          icon: 'success',
-          title: '成功刪除'
+      axios.delete(url)
+        .then(res => {
+          console.log(res)
+          this.getCart()
+          Toast.fire({
+            icon: 'success',
+            title: '成功刪除'
+          })
         })
-      })
     },
 
     // 刪除全部購物車
-    deleteAllCart(){
+    deleteAllCart() {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
-      axios.delete(url).then(res => {
-        console.log('購物車已清空', res)
-      })
+      axios.delete(url)
+        .then(res => {
+          console.log('購物車已清空', res)
+        })
+    },
+
+    // 複製優惠券
+    copyCoupon() {
+      this.couponCode = 'pocket'
     },
 
     // 優惠券使用
     useCoupon() {
       const url = `${VITE_URL}/api/${VITE_PATH}/coupon`
       axios.post(url, {
-          data: {
-            code: this.couponCode
-          }
-        })
+        data: {
+          code: this.couponCode
+        }
+      })
         .then((res) => {
-          console.log('已套用優惠券',res)
+          console.log('已套用優惠券', res)
+          Toast.fire({
+            icon: 'success',
+            title: res.data.data.message
+          })
+          this.couponCode = ''
+          this.getCart()
         })
     }
-  }
+  },
 })

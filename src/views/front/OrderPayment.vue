@@ -2,7 +2,7 @@
   <main style="min-height: 70vh">
     <section class="section section_payment">
       <div class="container my-5">
-        <CartTimeLine></CartTimeLine>
+        <CartTimeLine :step="step"></CartTimeLine>
 
         <!-- 訂單資訊及聯絡人資訊 -->
         <div class="complete_order border rounded-4">
@@ -28,9 +28,9 @@
                           style="height: 4rem; object-fit: cover; border-radius: 10px"
                         />
                       </td>
-                      <td>{{product.product.title}}</td>
-                      <td class="text-end">{{product.qty}}</td>
-                      <td class="text-end">{{product.qty * product.product.price}}</td>
+                      <td>{{ product.product.title }}</td>
+                      <td class="text-end">{{ product.qty }}</td>
+                      <td class="text-end">{{ product.qty * product.product.price }}</td>
                     </tr>
                   </tbody>
                   <tfoot class="border-top">
@@ -95,57 +95,41 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
+import { mapActions, mapState } from 'pinia'
+import orderStore from '../../stores/orderStore'
 import CartTimeLine from '../../components/front/CartTimeLine.vue'
 
 export default {
   data() {
     return {
-      order: {},
-      products: [],
-      user: {},
-      orderId: '',
+      step: 3
     }
   },
   components: {
     CartTimeLine
   },
-  mounted(){
-    // this.getOrders()
+  mounted() {
     this.getOrder()
   },
   methods: {
-    // 取得所有訂單資料(確認用)
-    // getOrders(){
-    //   const url = `${VITE_URL}/api/${VITE_PATH}/orders`
-    //   this.$http.get(url)
-    //     .then(res => {
-    //       console.log('所有訂單',res)
-    //     })
-    // },
-
-    // 取得單一訂單資料
-    getOrder() {
-      const {orderId} = this.$route.params;
-      const url = `${VITE_URL}/api/${VITE_PATH}/order/${orderId}`
-      this.$http.get(url)
-        .then(res => {
-          console.log('訂單資訊',res)
-          console.log('訂單數量',res.data.order.products)
-          this.order = res.data.order
-          this.user = res.data.order.user
-        })
-    },
-
-    // 確認付款
-    orderPay(){
-      const {orderId} = this.$route.params;
+    orderPay() {
+      const { orderId } = this.$route.params
       const url = `${VITE_URL}/api/${VITE_PATH}/pay/${orderId}`
-      this.$http.post(url)
-        .then(res => {
-          console.log('完成訂單',res)
+      console.log('確認付款', url)
+      this.$http
+        .post(url)
+        .then((res) => {
+          console.log('確認付款', res)
           this.$router.push(`/complete/${orderId}`)
         })
-    }
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    ...mapActions(orderStore, ['getOrders', 'getOrder'])
+  },
+  computed: {
+    ...mapState(orderStore, ['order', 'products', 'user'])
   }
 }
 </script>
