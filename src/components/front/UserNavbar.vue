@@ -19,23 +19,23 @@
         <div class="mobile d-flex d-md-none">
           <div class="navbar-button">
             <!-- mobile button cart -->
-            <RouterLink to="/cart" type="button" class="border-0 bg-transparent position-relative">
+            <button class="border-0 bg-transparent position-relative" @click="toCart">
               <span
                 class="badge text-primary bg-white rounded-pill position-absolute top-0 start-100 translate-middle"
                 >{{ cartNum }}</span
               >
-              <span class="material-symbols-outlined fs-1">shopping_cart</span>
-            </RouterLink>
+              <i class="bi bi-cart3 text-white fs-1"></i>
+            </button>
             <!-- mobile button menu -->
             <button
-              class="border-0 bg-transparent ms-3"
+              class="ms-2 border-0 bg-transparent"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"
               aria-controls="navbarText"
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="material-symbols-outlined fs-1">menu</span>
+              <i class="bi bi-list text-white fs-1"></i>
             </button>
           </div>
         </div>
@@ -74,13 +74,13 @@
 
         <!-- PC -->
         <div class="pc d-none d-md-flex">
-          <RouterLink to="/cart" class="border-0 bg-transparent position-relative">
+          <button class="border-0 bg-transparent position-relative" @click="toCart">
             <span
               class="badge bg-white text-primary rounded-pill position-absolute top-0 start-100 translate-middle"
               >{{ cartNum }}</span
             >
-            <span class="material-symbols-outlined fs-1">shopping_cart</span>
-          </RouterLink>
+            <i class="bi bi-cart3 text-white fs-3"></i>
+          </button>
         </div>
       </nav>
     </div>
@@ -112,6 +112,9 @@ export default {
     RouterLink
   },
   methods: {
+    toCart(){
+      this.$router.push('/cart')
+    },
     ...mapActions(cartStore, ['getCart'])
   },
   computed: {

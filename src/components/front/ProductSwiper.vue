@@ -129,7 +129,7 @@ export default {
     getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products`
       this.$http.get(url).then((res) => {
-        console.log('全部商品', res)
+        console.log('Swiper全部商品', res)
         this.products = res.data.products
       })
     }

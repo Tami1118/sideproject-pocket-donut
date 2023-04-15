@@ -1,6 +1,6 @@
 <template>
   <div class="step_group mb-4">
-    <div class="container" style="max-width: 800px">
+    <div class="container" style="max-width: 500px">
       <ol class="row">
         <li class="col step_item active">
           <div class="step_num">1</div>
@@ -8,15 +8,11 @@
         </li>
         <li class="col step_item" :class="step >= 2 ? 'active':''">
           <div class="step_num">2</div>
-          <div class="step_text">填寫資料</div>
+          <div class="step_text">訂單成立</div>
         </li>
-        <li class="col step_item" :class="step >= 3 ? 'active':''">
+        <li class="col step_item" :class="step >= 3  ? 'active': ''">
           <div class="step_num">3</div>
-          <div class="step_text">確認付款</div>
-        </li>
-        <li class="col step_item" :class="step >= 4  ? 'active': ''">
-          <div class="step_num">4</div>
-          <div class="step_text">完成訂單</div>
+          <div class="step_text">完成付款</div>
         </li>
       </ol>
     </div>
@@ -38,6 +34,7 @@ ol {
   .step_num {
     width: 3rem;
     height: 3rem;
+    font-size: 1.2rem;
     border-radius: 50%;
     background-color: var(--gray);
     color: #fff;

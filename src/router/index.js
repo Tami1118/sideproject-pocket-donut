@@ -31,11 +31,7 @@ const routes = [
       },
       {
         path: 'cart',
-        component: () => import('../views/front/OrderCheck.vue')
-      },
-      {
-        path: 'form',
-        component: () => import('../views/front/OrderForm.vue')
+        component: () => import('../views/front/CartCheck.vue')
       },
       {
         path: 'payment/:orderId',
@@ -49,6 +45,10 @@ const routes = [
         path: 'faq',
         component: () => import('../views/front/FaqView.vue')
       },
+      {
+        path: 'test',
+        component: () => import('../views/front/TestView.vue')
+      }
     ]
   },
   {

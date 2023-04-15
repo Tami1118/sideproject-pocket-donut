@@ -9,9 +9,8 @@ export default defineStore('cart', {
       cart: [],
       total: '',
       final_total: '',
-      loadingItem: '',
       cartNum: '',
-      couponCode: '',
+      loadingItem: '',
     }
   },
   actions: {
@@ -20,8 +19,8 @@ export default defineStore('cart', {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
       axios.get(url)
         .then(res => {
-          this.cartNum = res.data.data.carts.reduce((pre, cart) => pre + cart.qty, 0)
           console.log('取得購物車列表:', res)
+          this.cartNum = res.data.data.carts.reduce((pre, item) => pre + item.qty, 0)
           this.cart = res.data.data
           this.total = res.data.data.total
           this.final_total = res.data.data.final_total
@@ -99,24 +98,5 @@ export default defineStore('cart', {
     copyCoupon() {
       this.couponCode = 'pocket'
     },
-
-    // 優惠券使用
-    useCoupon() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/coupon`
-      axios.post(url, {
-        data: {
-          code: this.couponCode
-        }
-      })
-        .then((res) => {
-          console.log('已套用優惠券', res)
-          Toast.fire({
-            icon: 'success',
-            title: res.data.data.message
-          })
-          this.couponCode = ''
-          this.getCart()
-        })
-    }
   },
 })

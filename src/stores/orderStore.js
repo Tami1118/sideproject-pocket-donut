@@ -10,7 +10,9 @@ export default defineStore('order', {
       orders: [],
       order: {},
       products: [],
+      orderTotal: '',
       user: {},
+      itemNum: '',
     }
   },
   actions: {
@@ -35,9 +37,12 @@ export default defineStore('order', {
       axios.get(url)
         .then(res => {
           console.log('單一訂單',res)
+          // 待研究數量如何累加
+          // this.itemNum = res.data.order.reduce((pre, item) => pre + item.qty, 0)
           this.order = res.data.order
           this.products = res.data.order.products
           this.user = res.data.order.user
+          // this.orderTotal = res.data.order.products.reduce((pre, item)=> pre + item.total, 0)
         })
         .catch(err => {
           console.log(err)
