@@ -13,7 +13,7 @@
         </tr>
         <tr class="fw-bold">
           <td class="py-2">付款總額</td>
-          <td>NT ${{ order.total }}</td>
+          <td>NT ${{ Math.round(order.total) }}</td>
         </tr>
         <tr class="fw-bold">
           <td class="py-2">付款狀態</td>

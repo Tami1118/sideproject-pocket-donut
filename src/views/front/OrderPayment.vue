@@ -34,6 +34,8 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 import OrderTimeLine from '@/components/front/OrderTimeLine.vue'
 import OrderList from '@/components/front/OrderList.vue'
 import OrderInfo from '@/components/front/OrderInfo.vue'
+import Toast from '@/mixins/toast.js'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data() {
@@ -56,9 +58,19 @@ export default {
         .then((res) => {
           console.log('確認付款', res)
           this.$router.push(`/complete/${orderId}`)
+          Toast.fire({
+            icon: 'success',
+            title: '付款成功'
+          })
         })
         .catch((err) => {
           console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: '付款失敗，請再試一次',
+            iconColor: '#be0e3d',
+            confirmButtonColor: '#be0e3d'
+          })
         })
     }
   }

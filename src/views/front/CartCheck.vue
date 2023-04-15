@@ -1,6 +1,6 @@
 <template>
-  <main class="main main_order">
-    <div class="container my-5" style="min-height: 70vh">
+  <main style="min-height: 70vh">
+    <div class="container my-5">
       <template v-if="cart.carts && cartNum > 0">
         <!-- 購物車時間軸 -->
         <section class="section section_time-line">
@@ -75,6 +75,7 @@ import CartCount from '@/components/front/CartCount.vue'
 import CartForm from '@/components/front/CartForm.vue'
 import ProductSwiper from '@/components/front/ProductSwiper.vue'
 import Toast from '@/mixins/toast.js'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data() {
@@ -95,7 +96,7 @@ export default {
     this.getCart()
   },
   methods: {
-    // 使用優惠券
+    // 套用優惠券
     useCoupon() {
       const url = `${VITE_URL}/api/${VITE_PATH}/coupon`
       this.$http.post(url, {
@@ -107,10 +108,20 @@ export default {
           console.log('已套用優惠券', res)
           Toast.fire({
             icon: 'success',
-            title: res.data.data.message
+            title: '已套用優惠券'
           })
           this.couponCode = ''
           this.getCart()
+        })
+        .catch((err) => {
+          console.log('套用失敗', err)
+          Swal.fire({
+            icon: 'error',
+            title: '套用優惠券失敗',
+            text: '請確認優惠券代碼是否正確',
+            iconColor: '#be0e3d',
+            confirmButtonColor: '#be0e3d'
+          })
         })
     },
     ...mapActions(cartStore, ['getCart'])

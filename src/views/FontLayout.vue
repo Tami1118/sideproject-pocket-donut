@@ -6,8 +6,8 @@
 
 <script>
 import { RouterView } from 'vue-router'
-import UserNavbar from '../components/front/UserNavbar.vue'
-import UserFooter from '../components/front/UserFooter.vue'
+import UserNavbar from '@/components/front/UserNavbar.vue'
+import UserFooter from '@/components/front/UserFooter.vue'
 
 export default {
   components: {

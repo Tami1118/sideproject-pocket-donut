@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main style="min-height: 70vh">
     <div class="container my-5">
       <!-- 購物車時間軸 -->
       <OrderTimeLine :step="step" />

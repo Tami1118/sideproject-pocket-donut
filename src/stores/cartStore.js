@@ -2,6 +2,7 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import Toast from '@/mixins/toast.js'
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default defineStore('cart', {
   state: () => {
@@ -27,6 +28,12 @@ export default defineStore('cart', {
         })
         .catch(err => {
           console.log(err)
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: '請確認',
+          //   text: 'Something went wrong!',
+          //   footer: '<a href="">Why do I have this issue?</a>'
+          // })
         })
     },
 

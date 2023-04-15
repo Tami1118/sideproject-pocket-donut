@@ -80,6 +80,7 @@
           name="message"
           id="message"
           rows="5"
+          placeholder="備註"
           v-model="data.message"
         ></textarea>
       </div>
@@ -108,6 +109,8 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
+import Toast from '@/mixins/toast.js'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data() {
@@ -132,9 +135,19 @@ export default {
         .then((res) => {
           console.log('成功新增訂單', res)
           this.$router.push(`/payment/${res.data.orderId}`)
+          Toast.fire({
+            icon: 'success',
+            title: '成功新增訂單'
+          })
         })
         .catch((err) => {
           console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: '請確認資料是否完整',
+            iconColor: '#be0e3d',
+            confirmButtonColor: '#be0e3d'
+          })
         })
     },
     isPhone(value) {

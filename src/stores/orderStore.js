@@ -2,7 +2,6 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 import { defineStore } from 'pinia'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-// import Toast from '@/mixins/toast.js'
 
 export default defineStore('order', {
   state: () => {
@@ -37,11 +36,11 @@ export default defineStore('order', {
       axios.get(url)
         .then(res => {
           console.log('單一訂單',res)
-          // 待研究數量如何累加
-          // this.itemNum = res.data.order.reduce((pre, item) => pre + item.qty, 0)
           this.order = res.data.order
           this.products = res.data.order.products
           this.user = res.data.order.user
+          // 待研究數量如何累加
+          // this.itemNum = res.data.order.reduce((pre, item) => pre + item.qty, 0)
           // this.orderTotal = res.data.order.products.reduce((pre, item)=> pre + item.total, 0)
         })
         .catch(err => {
