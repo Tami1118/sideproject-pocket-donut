@@ -31,11 +31,10 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
+import { Toast, Alert } from '@/mixins/swal'
 import OrderTimeLine from '@/components/front/OrderTimeLine.vue'
 import OrderList from '@/components/front/OrderList.vue'
 import OrderInfo from '@/components/front/OrderInfo.vue'
-import Toast from '@/mixins/toast.js'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data() {
@@ -65,14 +64,12 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          Swal.fire({
-            icon: 'error',
+          Alert.fire({
             title: '付款失敗，請再試一次',
-            iconColor: '#be0e3d',
-            confirmButtonColor: '#be0e3d'
           })
         })
-    }
+    },
+    
   }
 }
 </script>

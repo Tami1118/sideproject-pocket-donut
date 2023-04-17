@@ -40,11 +40,11 @@
           <td>{{ user.tel }}</td>
         </tr>
         <tr>
-          <td class="py-2">地址</td>
+          <td class="py-2">取件分店</td>
           <td>{{ user.address }}</td>
         </tr>
         <tr>
-          <td class="py-2">地址</td>
+          <td class="py-2">備註</td>
           <td>{{ order.message }}</td>
         </tr>
       </tbody>

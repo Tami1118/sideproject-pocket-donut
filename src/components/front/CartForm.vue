@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column h-100">
-    <VForm v-slot="{ errors }" @submit="createOrder">
+    <VForm ref="form" v-slot="{ errors }" @submit="createOrder">
       <div class="form_item mt-3">
         <label class="form-label" for="name">
           姓名
@@ -57,19 +57,26 @@
 
       <div class="form_item mt-3">
         <label class="form-label" for="address">
-          地址
+          取件分店
           <span class="text-danger">*</span>
         </label>
         <VField
-          class="form-control"
-          type="text"
+          as="select"
+          class="form-select"
           id="address"
           placeholder="請輸入地址"
           name="地址"
           :class="{ 'is-invalid': errors['地址'] }"
           rules="required"
           v-model="data.user.address"
-        />
+        >
+          <option selected>請選擇</option>
+          <option value="台北店">台北店</option>
+          <option value="桃園店">桃園店</option>
+          <option value="台中店">台中店</option>
+          <option value="台南店">台南店</option>
+          <option value="高雄店">高雄店</option>
+        </VField>
         <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
       </div>
 
@@ -85,9 +92,12 @@
         ></textarea>
       </div>
     </VForm>
-    
-    <div class="text-end mt-5">
-      <button type="button" class="btn btn-primary text-nowrap m-auto" @click="createOrder">
+
+    <div class="mt-1"><span class="text-danger">*</span> 為必填項目</div>
+
+    <div class="mt-4 d-flex justify-content-between">
+      <button type="button" class="btn btn-light text-nowrap" @click="userReset">重置</button>
+      <button type="button" class="btn btn-primary text-nowrap" @click="createOrder">
         下一步，確認付款
       </button>
     </div>
@@ -109,8 +119,9 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
-import Toast from '@/mixins/toast.js'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { mapState, mapActions } from 'pinia'
+import { Toast, Alert } from '@/mixins/swal'
+import cartStore from '@/stores/cartStore'
 
 export default {
   data() {
@@ -118,42 +129,55 @@ export default {
       // fields,
       data: {
         user: {
-          name: '',
-          email: '',
-          tel: '',
-          address: ''
+          name: 'Taim',
+          email: 'tami@gmail.com',
+          tel: '0987654321',
+          address: '請選擇'
         },
         message: ''
       }
     }
   },
   methods: {
+    ...mapActions(cartStore, ['getCart']),
     createOrder() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/order`
-      this.$http
-        .post(url, { data: this.data })
-        .then((res) => {
-          console.log('成功新增訂單', res)
-          this.$router.push(`/payment/${res.data.orderId}`)
-          Toast.fire({
-            icon: 'success',
-            title: '成功新增訂單'
+      if (this.data.user.address !== '請選擇') {
+        const url = `${VITE_URL}/api/${VITE_PATH}/order`
+        this.$http
+          .post(url, { data: this.data })
+          .then((res) => {
+            console.log('成功新增訂單', res)
+            this.$refs.form.resetForm()
+            this.getCart()
+            this.$router.push(`/payment/${res.data.orderId}`)
+            Toast.fire({
+              icon: 'success',
+              title: '成功新增訂單'
+            })
           })
-        })
-        .catch((err) => {
-          console.log(err)
-          Swal.fire({
-            icon: 'error',
-            title: '請確認資料是否完整',
-            iconColor: '#be0e3d',
-            confirmButtonColor: '#be0e3d'
+          .catch((err) => {
+            console.log(err)
+            Alert.fire({
+              title: '收件人資訊有誤',
+              text: '* 為必填項目，請確認資料格式是否正確'
+            })
           })
+      } else {
+        Alert.fire({
+          title: '請選擇取件門市'
         })
+      }
+    },
+    userReset() {
+      this.$refs.form.resetForm()
     },
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/
       return phoneNumber.test(value) ? true : '請輸入正確手機號碼格式 ex: 0912345678'
     }
+  },
+  computed: {
+    ...mapState(cartStore, ['cartNum'])
   }
 }
 

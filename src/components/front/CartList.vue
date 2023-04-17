@@ -39,7 +39,7 @@
       </tr>
     </tbody>
     <tfoot>
-      <tr>
+      <tr style="background-color: #f8fafc;">
         <td colspan="5" class="text-end">共計
           <span class="text-primary fw-bold">{{ Math.round(cartNum) }}</span> 件商品
         </td>

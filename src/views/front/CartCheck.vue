@@ -7,6 +7,11 @@
           <OrderTimeLine />
         </section>
 
+        <RouterLink to="/products" class="router_link fs-5 text-primary">
+          <i class="bi bi-arrow-left-circle-fill text-primary"></i>
+          繼續購物
+        </RouterLink>
+
         <div class="row">
           <div class="col-md-7 p-4">
             <section class="section section_cart_list">
@@ -14,14 +19,14 @@
               <h1 class="fs-3 mb-3">確認購物車</h1>
               <CartList />
               <CartCount />
-              <form class="row g-0">
+              <form class="row g-0" ref="form">
                 <div class="col-8">
                   <input
                     type="text"
                     class="form-control w-100"
                     style="border-radius: 8px 0 0 8px"
                     v-model="couponCode"
-                    :placeholder="total !== final_total ? '已套用優惠碼' : '請輸入優惠碼'"
+                    :placeholder="total !== final_total ? '' : '請輸入優惠碼'"
                     :disabled="total !== final_total"
                   />
                 </div>
@@ -33,7 +38,7 @@
                     @click="useCoupon"
                     :disabled="total !== final_total"
                   >
-                    套用優惠碼
+                    {{ total !== final_total ? '已套用優惠碼':'套用優惠碼' }}
                   </button>
                 </div>
               </form>
@@ -66,22 +71,21 @@
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
-import { RouterLink } from 'vue-router'
 import { mapActions, mapState } from 'pinia'
+import { RouterLink } from 'vue-router'
+import { Toast,Alert } from '@/mixins/swal'
 import cartStore from '@/stores/cartStore'
 import OrderTimeLine from '@/components/front/OrderTimeLine.vue'
 import CartList from '@/components/front/CartList.vue'
 import CartCount from '@/components/front/CartCount.vue'
 import CartForm from '@/components/front/CartForm.vue'
 import ProductSwiper from '@/components/front/ProductSwiper.vue'
-import Toast from '@/mixins/toast.js'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data() {
     return {
       step: 1,
-      couponCode: 'pocket'
+      couponCode: 'pocket',
     }
   },
   components: {
@@ -110,17 +114,13 @@ export default {
             icon: 'success',
             title: '已套用優惠券'
           })
-          this.couponCode = ''
           this.getCart()
         })
         .catch((err) => {
           console.log('套用失敗', err)
-          Swal.fire({
-            icon: 'error',
+          Alert.fire({
             title: '套用優惠券失敗',
             text: '請確認優惠券代碼是否正確',
-            iconColor: '#be0e3d',
-            confirmButtonColor: '#be0e3d'
           })
         })
     },

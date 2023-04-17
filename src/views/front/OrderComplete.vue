@@ -8,7 +8,7 @@
       <div class="w-100 my-5 p-5">
         <div class="text-center">
           <h1 class="fs-3">訂單已成立！</h1>
-          <p>我們將盡快為您準備餐點，請於預定時間到店取貨唷~</p>
+          <p>感謝您的支持，我們將盡快為您準備餐點！</p>
           <RouterLink to="/" class="btn btn-primary me-2">回首頁</RouterLink>
           <RouterLink to="/products" class="btn btn-primary">繼續購物</RouterLink>
         </div>
