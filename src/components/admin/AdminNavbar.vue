@@ -55,7 +55,7 @@
                 </router-link>
               </li>
               <li class="nav-item mx-1">
-                <router-link to="/admin/news" class="nav-link link-active text-primary">
+                <router-link to="/admin/articles" class="nav-link link-active text-primary">
                   <div>消息管理</div>
                   <div class="mt-1" style="font-size: 0.8rem">News</div>
                 </router-link>

@@ -29,14 +29,14 @@
                     <button
                       type="button"
                       class="btn btn-outline-primary bg-white"
-                      @click="openModal('edit', item)"
+                      @click="openModal('edit', coupon)"
                     >
                       <i class="bi bi-pencil-square text-primary"></i>
                     </button>
                     <button
                       type="button"
                       class="btn btn-outline-light bg-white"
-                      @click="openModal('delete', item)"
+                      @click="openModal('delete', coupon)"
                     >
                       <i class="bi bi-trash3 text-light"></i>
                     </button>
@@ -51,59 +51,56 @@
     <PaginationView :pages="pagination" :get-list="getCoupons"></PaginationView>
   </div>
 
-  <!-- CouponModal -->
-  <button type="button" class="admin_btn_updata" @click="openModal('create')">
+  <!-- Modal -->
+  <!-- Button trigger modal -->
+  <button type="button" class="admin_btn_updata" @click="openModal('create', tempCoupon)">
     <i class="bi bi-plus-lg fs-2"></i>
   </button>
-  <!-- <div
-    class="modal fade"
-    id="couponModal"
-    ref="couponModal"
-    tabindex="-1"
-    aria-labelledby="couponModal"
-    aria-hidden="true"
-  ></div> -->
+  
+  <!-- couponModal -->
+  <div class="modal fade" ref="couponModal" id="couponModal" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
+    <CouponModal :isNew="isNew" :coupon="tempCoupon" :updateCoupon="updateCoupon" />
+  </div>
 
   <!-- deleteModal -->
-  <!-- 包在子元件 -->
-  <DeleteModal ref="deleteModal" :coupon="tempCoupon" @removeCoupon="removeCoupon" />
-  
+  <div class="modal fade" ref="deleteCouponModal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <DeleteCoupon :tempCoupon="tempCoupon" :deleteCoupon="deleteCoupon" />
+  </div>
 </template>
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
-import PaginationView from '../PaginationView.vue'
-import DeleteModal from '@/components/admin/DeleteModal.vue'
-// import Modal from 'bootstrap/js/dist/modal'
+import Modal from 'bootstrap/js/dist/modal'
 import { Toast, Alert } from '@/mixins/swal'
+import CouponModal from '@/components/admin/CouponModal.vue'
+import DeleteCoupon from '@/components/admin/DeleteCoupon.vue'
+import PaginationView from '@/components/PaginationView.vue'
 
 export default {
   data() {
     return {
       coupons: [],
-      tempCoupon: {
-        title: ''
-      },
+      tempCoupon: {},
       pagination: {},
 
-      // modal: null,
-      // deleteModal: null,
+      modal: '',
+      deleteModal: '',
 
       isNew: false,
       due_date: ''
     }
   },
   components: {
-    DeleteModal,
+    CouponModal,
+    DeleteCoupon,
     PaginationView
   },
   mounted() {
     this.getCoupons()
-    // this.modal = new Modal(this.$refs.couponModal)
-    // this.deleteModal = new Modal(this.$refs.deleteModal)
+    this.modal = new Modal(this.$refs.couponModal)
+    this.deleteModal = new Modal(this.$refs.deleteCouponModal)
   },
   methods: {
-    // 取得優惠券列表
     getCoupons(pagination = 1) {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/coupons/?page=${pagination}`
       this.$http
@@ -115,51 +112,49 @@ export default {
           this.pagination = pagination
         })
         .catch((err) => {
+          console.log('優惠券列表取得失敗', err)
           Alert.fire({
             title: err.response.data.message
           })
         })
     },
 
-    // 開啟優惠券modal/deleteModal
-    openModal(status, item) {
+    openModal(status, coupon) {
       if (status === 'create') {
         this.isNew = true
-        this.openShow()
+        this.modal.show()
         this.tempCoupon = {
           is_enabled: 0
         }
       } else if (status === 'edit') {
         this.isNew = false
-        this.openShow()
-        this.tempCoupon = JSON.parse(JSON.stringify(item))
+        this.modal.show()
+        this.tempCoupon = JSON.parse(JSON.stringify(coupon))
       } else if (status === 'delete') {
-        this.$refs.deleteModal.deleteCouponModal.show()
-        this.tempCoupon = {...item}
-        // this.tempCoupon = JSON.parse(JSON.stringify(item))
+        this.deleteModal.show()
+        this.tempCoupon = JSON.parse(JSON.stringify(coupon))
       }
     },
 
-    // 新增/編輯優惠券
     updataCoupon() {
       let url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon`
-      let method = 'post'
-      let message = '新增'
+      let http = 'post'
+      let message = '成功新增優惠券'
 
       if (!this.isNew) {
         url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${this.tempCoupon.id}`
-        method = 'put'
-        message = '更新'
+        http = 'put'
+        message = '成功更新優惠券'
       }
 
-      this.$http[method](url, { data: this.tempCoupon })
+      this.$http[http](url, { data: this.tempCoupon })
         .then((res) => {
           console.log(res)
           this.getCoupons()
-          this.openHide()
+          this.modal.hide()
           Toast.fire({
             icon: 'success',
-            title: `成功${message}優惠券`
+            title: message
           })
         })
         .catch((err) => {
@@ -170,22 +165,22 @@ export default {
         })
     },
 
-    // 刪除單一優惠券
-    removeCoupon(coupon) {
-      const url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${coupon.id}`
+    deleteCoupon() {
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${this.tempCoupon.id}`
       this.$http
         .delete(url)
         .then((res) => {
-          console.log('刪除優惠券', res)
+          console.log('成功刪除優惠券', res)
           this.getCoupons()
-          this.$refs.deleteModal.deleteCouponModal.hide();
+          this.deleteModal.hide();
           Toast.fire({
             icon: 'success',
-            title: `成功移除優惠券`
+            title: '成功刪除優惠券'
           })
         })
         .catch((err) => {
-          console.log('刪除失敗', err)
+          console.log('刪除優惠券失敗', err)
+          this.deleteModal.hide()
           Alert.fire({
             title: err.response.data.message
           })
@@ -200,36 +195,6 @@ export default {
       const day = date.getDate().toString().padStart(2, '0')
       return Number(`${year}${month}${day}`)
     },
-
-    // 開啟關閉
-    // openShow() {
-    //   console.log('開啟modal')
-    //   this.modal.show()
-    // },
-    // openHide() {
-    //   console.log('關閉modal')
-    //   this.modal.hide()
-    // },
-    // delShow() {
-    //   console.log('開啟deleteModal')
-    //   this.deleteModal.show()
-    // },
-    // delHide() {
-    //   console.log('關閉deleteModal')
-    //   this.deleteModal.hide()
-    // }
   },
-  watch: {
-    // 時間格式 YYY-MM-DD
-    coupon() {
-      this.tempCoupon = this.coupon
-      // toISOString為標準格式字符串; split字串按照T字符串分割
-      const dateAndTime = new Date(this.tempCoupon.due_date * 1000).toISOString().split('T')
-      ;[this.due_date] = dateAndTime
-    },
-    due_date() {
-      this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000)
-    }
-  }
 }
 </script>

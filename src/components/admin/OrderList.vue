@@ -1,18 +1,4 @@
 <template>
-  <!-- SortBy -->
-  <div class="admin_sortby">
-    <div class="col-3 ms-auto">
-      <div class="flex-xy-center mt-3">
-        <select class="form-select" aria-label="Products Range">
-          <option selected>排序</option>
-          <option value="new">最新訂單</option>
-          <option value="old">較舊訂單</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- List -->
   <div class="admin_list">
     <div class="col-12 my-3">
       <div class="p-4 bg-white rounded-3 shadow-sm">
@@ -36,21 +22,11 @@
               <div v-else>未付款</div>
             </div>
             <div class="col-3 btn-group">
-              <button type="button" class="btn btn-outline-primary bg-white">
-                <span
-                  class="material-symbols-outlined text-primary"
-                  @click="openModal('edit', item)"
-                >
-                  edit
-                </span>
+              <button type="button" class="btn btn-outline-primary bg-white" @click="openModal('edit', item)">
+                <i class="bi bi-pencil-square text-primary"></i>
               </button>
-              <button type="button" class="btn btn-outline-light bg-white">
-                <span
-                  class="material-symbols-outlined text-light"
-                  @click="openModal('delete', item)"
-                >
-                  delete
-                </span>
+              <button type="button" class="btn btn-outline-light bg-white" @click="openModal('delete', item)">
+                <i class="bi bi-trash3 text-light"></i>
               </button>
             </div>
           </div>
@@ -166,6 +142,7 @@
   </div>
 
   <!-- delOrderModal -->
+
 </template>
 
 <script>
@@ -191,6 +168,7 @@ export default {
   mounted() {
     this.getOrders()
     this.modal = new Modal(this.$refs.orderModal)
+    // this.delModal = new Modal(this.$refs.)
   },
   methods: {
     // 取得訂單列表
