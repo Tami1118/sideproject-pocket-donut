@@ -6,13 +6,23 @@
   --gray: #edf3f9;
 }
 
-
-img,
-.material-symbols-outlined {
-  vertical-align: middle;
+.about_banner{
+  position: relative;
+  height: 400px;
+}
+.box_banner{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff51;
+  display: flex;
 }
 
-
+img{
+  vertical-align: middle;
+}
 
 .router_link{
   text-decoration: none;
@@ -26,7 +36,7 @@ img,
 }
 
 /* modal */
-.admin_item_list:nth-child(odd) {
+.admin_item_list:nth-child(even) {
   background-color: #ebf3fc;
 }
 

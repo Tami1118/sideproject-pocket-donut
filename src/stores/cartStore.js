@@ -11,6 +11,7 @@ export default defineStore('cart', {
       final_total: '',
       cartNum: '',
       loadingItem: '',
+      qty: 1,
     }
   },
   actions: {

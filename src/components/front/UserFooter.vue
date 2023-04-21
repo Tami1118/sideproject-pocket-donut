@@ -24,7 +24,7 @@
                 <router-link to="/products" class="nav-link link-active">商品一覽</router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/news" class="nav-link link-active">最新消息</router-link>
+                <router-link to="/articles" class="nav-link link-active">最新消息</router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/about" class="nav-link link-active">關於我們</router-link>

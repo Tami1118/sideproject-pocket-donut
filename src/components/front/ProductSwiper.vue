@@ -26,32 +26,37 @@
     class="mySwiper"
   >
     <swiper-slide class="swiper_product pe-3" v-for="product in products" :key="product.id">
-      <RouterLink :to="`/product/${product.id}`" class="text-decoration-none">
-        <div class="item_card card">
-          <!-- item_image -->
-          <img class="item_image card-img-top" :src="product.imageUrl" :alt="product.title" />
-
-          <div class="item_info p-4">
-            <!-- item_category -->
-            <div class="item_category">{{ product.category }}</div>
-
-            <!-- item_intro -->
-            <div class="item_intro my-3">
-              <div class="item_title text-dark fs-3 fw-bold">{{ product.title }}</div>
-              <div class="item_price">
-                <span class="fw-bold fs-4"> NT$ {{ product.price }} </span>
-                <span> / {{ product.unit }}</span>
-              </div>
-            </div>
-
-            <!-- item_button -->
-            <button type="button" class="item_button btn btn-primary btn-lg rounded-4 w-100">
-              <span class="material-symbols-outlined"> add_shopping_cart </span>
-              加入購物車
-            </button>
+      <div class="card h-100 shadow-sm">
+        <RouterLink :to="`/product/${product.id}`" class="text-decoration-none text-dark">
+          <div class="card_img">
+            <img
+              :src="product.imageUrl"
+              class="card-img-top"
+              style="width: 100%; aspect-ratio: 1/1; object-fit: cover"
+              :alt="product.title"
+            />
           </div>
+          <div class="card-body">
+            <div class="badge bg-primary text-white rounded-pill">
+              {{ product.category }}
+            </div>
+            <h3 class="my-2 fs-3 fw-bold">{{ product.title }}</h3>
+            <div class="fw-bold text-primary d-flex align-items-end">
+              <div class="fs-4">NT$ {{ product.price }} /</div>
+              <small class="fs-5"> {{ product.unit }}</small>
+            </div>
+          </div>
+        </RouterLink>
+        <div class="card-footer bg-white pt-0">
+          <button
+            type="button"
+            class="btn btn-primary rounded-4 w-100 text-nowrap fs-5 mb-2"
+            @click="addToCart(product.id, qty)">
+            <i class="bi bi-cart-plus-fill me-2"></i>
+            加入購物車
+          </button>
         </div>
-      </RouterLink>
+      </div>
     </swiper-slide>
   </swiper>
 </template>
@@ -104,11 +109,13 @@
 </style>
 
 <script>
-const { VITE_URL, VITE_PATH } = import.meta.env
 import { RouterLink } from 'vue-router'
+import { mapActions, mapState } from 'pinia'
+import productStore from '@/stores/productStore'
+import cartStore from '@/stores/cartStore'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Keyboard, Navigation, Pagination } from 'swiper'
-
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -116,7 +123,6 @@ import 'swiper/css/pagination'
 export default {
   data() {
     return {
-      products: [],
       modules: [Keyboard, Navigation, Pagination]
     }
   },
@@ -125,17 +131,17 @@ export default {
     SwiperSlide,
     RouterLink
   },
-  methods: {
-    getProducts() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/products`
-      this.$http.get(url).then((res) => {
-        console.log('Swiper全部商品', res)
-        this.products = res.data.products
-      })
-    }
-  },
   mounted() {
     this.getProducts()
-  }
+  },
+  methods: {
+    ...mapActions(productStore, ['getProducts']),
+    ...mapActions(cartStore, ['addToCart'])
+  },
+  computed: {
+    ...mapState(productStore, ['products']),
+    ...mapState(cartStore, ['qty'])
+  },
+  
 }
 </script>

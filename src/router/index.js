@@ -22,12 +22,12 @@ const routes = [
         component: () => import('../views/front/ProductDetail.vue')
       },
       {
-        path: 'news',
-        component: () => import('../views/front/NewsView.vue')
+        path: 'articles',
+        component: () => import('../views/front/ArticlesView.vue')
       },
       {
-        path: 'new/:id',
-        component: () => import('../views/front/NewDetail.vue')
+        path: 'article/:id',
+        component: () => import('../views/front/ArticleDetail.vue')
       },
       {
         path: 'cart',
@@ -86,7 +86,7 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  linkActiveClass: 'active',
+  // linkActiveClass: 'active',
   scrollBehavior() {
     return {
       top: 0

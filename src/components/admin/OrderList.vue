@@ -172,7 +172,7 @@
 const { VITE_URL, VITE_PATH } = import.meta.env
 import PaginationView from '../PaginationView.vue'
 import Modal from 'bootstrap/js/dist/modal'
-import Toast from '@/mixins/toast.js'
+import { Toast } from '@/mixins/swal'
 
 export default {
   data() {

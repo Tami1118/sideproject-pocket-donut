@@ -47,10 +47,10 @@
 </template>
 
 <style lang="scss">
-.section {
-  border-radius: 5rem 5rem 0 0;
-  margin-top: -5rem;
-}
+// .section {
+//   border-radius: 5rem 5rem 0 0;
+//   margin-top: -5rem;
+// }
 .section-content{
   padding-bottom: 4rem;
 }

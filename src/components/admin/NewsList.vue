@@ -1,19 +1,47 @@
 <template>
-  <!-- SortBy -->
-  <div class="admin_sortby">
-    <div class="col-3 ms-auto">
-      <div class="flex-xy-center mt-3">
-        <select class="form-select" aria-label="News Range">
-          <option selected>排序</option>
-          <option value="new">最新消息</option>
-          <option value="old">最舊消息</option>
-        </select>
+  <div class="container">
+    <div class="admin_article_list">
+      <div class="row my-3">
+        <div class="col-12 p-4 bg-white rounded-3 shadow-sm">
+          <table class="table table-borderless">
+            <thead class="botder-bottom">
+              <tr class="text-align">
+                <th width="10%">時間</th>
+                <th width="20%">標題</th>
+                <th width="10%">作者</th>
+                <th width="20%" class="text-center">狀態</th>
+                <th width="20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-align admin_item_list" v-for="article in news" :key="article.id">
+                <td>{{ article.create_at }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.author }}</td>
+                <td class="text-center">
+                  <div v-if="article.isPublic" class="text-success">已啟用</div>
+                  <div v-else>隱藏</div>
+                </td>
+                <td>
+                  <div class="col-3 btn-group">
+                    <button type="button" class="btn btn-outline-primary bg-white" @click="openModal('edit', item)">
+                      <i class="bi bi-pencil-square text-primary"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-light bg-white" @click="openModal('delete', item)">
+                      <i class="bi bi-trash3 text-light"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+      <PaginationView :pages="pagination" :get-list="getNews"></PaginationView>
     </div>
   </div>
 
-  <!-- List -->
-  <div class="admin_list">
+  <!-- <div class="admin_list">
     <div class="col-12 my-3">
       <div class="p-4 bg-white rounded-3 shadow-sm">
         <div class="border-bottom rounded-0 bg-transparent px-3">
@@ -35,28 +63,13 @@
               <div v-if="item.isPublic" class="text-primary fw-bold">已啟用</div>
               <div v-else>隱藏</div>
             </div>
-            <div class="col-3 btn-group">
-              <button
-                type="button"
-                class="btn btn-outline-primary bg-white"
-                @click="openModal('edit', item)"
-              >
-                <span class="material-symbols-outlined text-primary">edit </span>
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-light bg-white"
-                @click="openModal('delete', item)"
-              >
-                <span class="material-symbols-outlined text-light">delete</span>
-              </button>
-            </div>
+            
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <PaginationView :pages="pagination" :get-list="getNews"></PaginationView>
+  </div> -->
+  
 
   <!-- NewModal -->
   <!-- Button trigger modal -->
@@ -92,14 +105,15 @@
             <div class="row">
               <div class="col-12 col-md-6">
                 <div class="modal-pic-area">
-                  <img
-                    class="modal_pic_img"
-                    :src="tempNew.imageUrl"
-                    alt=""
-                  />
+                  <img class="modal_pic_img" :src="tempNew.imageUrl" alt="" />
                   <div class="modal_item">
                     <label for="newsImage" class="form-label">文章圖片</label>
-                    <input type="text" id="newsImage" v-model="tempNew.imageUrl" class="form-control" />
+                    <input
+                      type="text"
+                      id="newsImage"
+                      v-model="tempNew.imageUrl"
+                      class="form-control"
+                    />
                   </div>
                 </div>
               </div>
@@ -172,12 +186,19 @@
               <div class="col-12">
                 <div class="modal_item mt-2">
                   <label for="newsDescription" class="form-label">簡述內容</label>
-                  <input
+
+                  <ckeditor
+                    :editor="editor"
+                    :config="editorConfig"
+                    id="newDescription"
+                    v-model="tempNew.description"
+                  ></ckeditor>
+                  <!-- <input
                     type="text"
                     class="form-control"
                     id="newDescription"
                     v-model="tempNew.description"
-                  />
+                  /> -->
                 </div>
               </div>
               <div class="col-12">
@@ -185,12 +206,20 @@
                   <label for="newsContent" class="form-label mb-1">
                     文章內容 <span class="text-danger">*</span>
                   </label>
-                  <ckeditor
+                  <!-- <ckeditor
                     :editor="editor"
                     :config="editorConfig"
                     id="newsContent"
                     v-model="tempNew.content"
-                  ></ckeditor>
+                  ></ckeditor> -->
+                  <textarea
+                    class="form-control"
+                    v-model="tempNew.content"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -239,7 +268,7 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 import PaginationView from '../PaginationView.vue'
 import Modal from 'bootstrap/js/dist/modal'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import Toast from '@/mixins/toast.js'
+import { Toast } from '@/mixins/swal'
 
 export default {
   data() {
@@ -257,9 +286,7 @@ export default {
 
       editor: ClassicEditor,
       editorData: '',
-      editorConfig: {
-        placeholder: '請輸入文章內容'
-      }
+      editorConfig: {}
     }
   },
   components: {
@@ -278,7 +305,7 @@ export default {
         .get(url)
         .then((res) => {
           console.log('消息列表', res)
-          const { articles, pagination } = res.data;
+          const { articles, pagination } = res.data
           this.news = articles
           this.pagination = pagination
         })
@@ -322,7 +349,7 @@ export default {
 
       this.$http[method](url, { data: this.tempNew })
         .then((res) => {
-          console.log(res)
+          console.log('更新文章', res)
           this.getNews()
           this.openHide()
           Toast.fire({

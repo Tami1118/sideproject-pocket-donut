@@ -1,265 +1,106 @@
 <template>
-  <!-- SortBy -->
-  <div class="admin_sortby">
-    <div class="col-3 ms-auto">
-      <div class="flex-xy-center mt-3">
-        <select class="form-select" aria-label="Coupons Range">
-          <option selected>排序</option>
-          <option value="new">最新優惠</option>
-          <option value="old">到期日</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- List -->
-  <div class="admin_list">
-    <div class="col-12 my-3">
-      <div class="p-4 bg-white rounded-3 shadow-sm">
-        <div class="border-bottom rounded-0 bg-transparent px-3">
-          <div class="row">
-            <div class="col-3 py-2">標題</div>
-            <div class="col-2 py-2">折扣</div>
-            <div class="col-2 py-2">到期日</div>
-            <div class="col-2 py-2 text-end">狀態</div>
-            <div class="col-3 py-2"></div>
-          </div>
-        </div>
-
-        <div class="admin_item_list rounded-2 px-3" v-for="item in coupons" :key="item.id">
-          <div class="row align-items-center">
-            <div class="col-3 py-2">{{ item.title }}</div>
-            <div class="col-2 py-2">{{ item.percent }}</div>
-            <div class="col-2 py-2">{{ formattedDate(item.due_date) }}</div>
-            <div class="col-2 py-2 text-end">
-              <div v-if="item.is_enabled" class="text-primary fw-bold">已啟用</div>
-              <div v-else>隱藏</div>
-            </div>
-            <div class="col-3 py-2">
-              <div class="col-3 btn-group">
-                <button
-                  type="button"
-                  class="btn btn-outline-primary bg-white"
-                  @click="openModal('edit', item)"
-                >
-                  <span class="material-symbols-outlined text-primary">edit</span>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-light bg-white"
-                  @click="openModal('delete', item)"
-                >
-                  <span class="material-symbols-outlined text-light">delete</span>
-                </button>
-              </div>
-            </div>
-          </div>
+  <div class="container">
+    <div class="admin_coupon_list">
+      <div class="row my-3">
+        <div class="col-12 p-4 bg-white rounded-3 shadow-sm">
+          <table class="table table-borderless">
+            <thead class="border-bottom">
+              <tr class="text-align">
+                <th width="25%">標題</th>
+                <th width="10%">代碼</th>
+                <th width="10%" class="text-end">折扣</th>
+                <th width="15%">到期日</th>
+                <th width="20%" class="text-center">狀態</th>
+                <th width="20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-align admin_item_list" v-for="coupon in coupons" :key="coupon.id">
+                <td>{{ coupon.title }}</td>
+                <td>{{ coupon.code }}</td>
+                <td class="text-end">{{ coupon.percent }}</td>
+                <td>{{ coupon.due_date }}</td>
+                <td class="text-center">
+                  <div v-if="coupon.is_enabled" class="text-success">已啟用</div>
+                  <div v-else>未啟用</div>
+                </td>
+                <td>
+                  <div class="col-3 btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary bg-white"
+                      @click="openModal('edit', item)"
+                    >
+                      <i class="bi bi-pencil-square text-primary"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-light bg-white"
+                      @click="openModal('delete', item)"
+                    >
+                      <i class="bi bi-trash3 text-light"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+    <PaginationView :pages="pagination" :get-list="getCoupons"></PaginationView>
   </div>
-  <!-- Pagination -->
-  <PaginationView :pages="pagination" :get-list="getCoupons"></PaginationView>
 
   <!-- CouponModal -->
-  <!-- Button trigger modal -->
   <button type="button" class="admin_btn_updata" @click="openModal('create')">
-    <span class="material-symbols-outlined fs-1"> add </span>
+    <i class="bi bi-plus-lg fs-2"></i>
   </button>
-
-  <!-- Modal -->
-  <!-- title, percent, due_date, code必填 -->
-  <div
+  <!-- <div
     class="modal fade"
     id="couponModal"
     ref="couponModal"
     tabindex="-1"
     aria-labelledby="couponModal"
     aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            {{ isNew ? '新增優惠券' : '編輯優惠券' }}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <VForm v-slot="{ errors }">
-            <div class="row">
-              <!-- 是否啟用、標題、折扣、折扣代碼、折扣條件、開始日期、截止日期 -->
-              <div class="col-12">
-                <div class="modal_item">
-                  <label class="form-label" for="couponsCode">
-                    折扣代碼 <span class="text-danger">*</span>
-                  </label>
-                  <VField
-                    type="text"
-                    class="form-control"
-                    id="couponCode"
-                    name="折扣代碼"
-                    :class="{ 'is-invalid': errors['折扣代碼'] }"
-                    placeholder="請輸入折扣代碼"
-                    rules="required"
-                    v-model="tempCoupon.code"
-                  >
-                  </VField>
-                  <ErrorMessage name="折扣代碼" class="invalid-feedback"></ErrorMessage>
-                </div>
-                <div class="modal_item">
-                  <label class="form-label" for="couponTitle">
-                    優惠名稱 <span class="text-danger">*</span>
-                  </label>
-                  <VField
-                    type="text"
-                    class="form-control"
-                    id="couponTitle"
-                    name="優惠名稱"
-                    :class="{ 'is-invalid': errors['優惠名稱'] }"
-                    placeholder="請輸入優惠名稱"
-                    rules="required"
-                    v-model="tempCoupon.title"
-                  ></VField>
-                  <ErrorMessage name="優惠名稱" class="invalid-feedback"></ErrorMessage>
-                </div>
-                <div class="modal_item">
-                  <label class="form-label" for="couponDate">
-                    到期日 <span class="text-danger">*</span>
-                  </label>
-                  <VField
-                    type="date"
-                    class="form-control"
-                    id="couponDate"
-                    name="到期日"
-                    :class="{ 'is-invalid': errors['到期日'] }"
-                    rules="required"
-                    v-model="due_date"
-                  ></VField>
-                  <ErrorMessage name="到期日" class="invalid-feedback"></ErrorMessage>
-                </div>
-                <div class="modal_item">
-                  <label class="form-label" for="couponPercent">
-                    折扣百分比 <span class="text-danger">*</span>
-                  </label>
-                  <VField
-                    type="number"
-                    class="form-control"
-                    id="couponPercent"
-                    name="折扣百分比"
-                    :class="{ 'is-invalid': errors['折扣百分比'] }"
-                    placeholder="請輸入折扣百分比"
-                    rules="required"
-                    v-model.number="tempCoupon.percent"
-                  ></VField>
-                  <ErrorMessage name="折扣百分比" class="invalid-feedback"></ErrorMessage>
-                </div>
-                <hr />
-                <div class="modal_item">
-                  <label class="form-label" for="couponRule">折扣條件</label>
-                  <input
-                    class="form-control"
-                    id="couponRule"
-                    type="text"
-                    v-model="tempCoupon.rule"
-                  />
-                </div>
-                <div class="modal_item">
-                  <label class="form-label" for="couponNum">數量</label>
-                  <input
-                    class="form-control"
-                    id="couponNum"
-                    type="number"
-                    v-model.number="tempCoupon.num"
-                  />
-                </div>
-                <div class="modal_item">
-                  <input
-                    class="form-check-input"
-                    id="coupon"
-                    type="checkbox"
-                    v-model="tempCoupon.is_enabled"
-                    :true-value="1"
-                    :false-value="0"
-                  />
-                  <label class="form-label ms-2" for="couponEnabled"> 是否啟用 </label>
-                </div>
-              </div>
-            </div>
-          </VForm>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button class="btn btn-primary" @click="updataCoupon">
-            {{ isNew ? '新增' : '更新' }}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  ></div> -->
 
-  <!-- delCouponModal -->
-  <div
-    class="modal fade"
-    id="delCouponModal"
-    ref="delCouponModal"
-    tabindex="-1"
-    aria-labelledby="delCouponModal"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title">確定要刪除？</h5>
-        </div>
-        <div class="modal-body">
-          刪除後的優惠券無法復原，確定要刪除
-          <span class="text-primary fw-bold">{{ tempCoupon.title }}</span
-          >？
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary" @click="removeCoupon(tempCoupon)">
-            刪除
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- deleteModal -->
+  <!-- 包在子元件 -->
+  <DeleteModal ref="deleteModal" :coupon="tempCoupon" @removeCoupon="removeCoupon" />
+  
 </template>
 
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env
 import PaginationView from '../PaginationView.vue'
-import Modal from 'bootstrap/js/dist/modal'
-import Toast from '@/mixins/toast.js'
+import DeleteModal from '@/components/admin/DeleteModal.vue'
+// import Modal from 'bootstrap/js/dist/modal'
+import { Toast, Alert } from '@/mixins/swal'
 
 export default {
   data() {
     return {
       coupons: [],
-      tempCoupon: {},
+      tempCoupon: {
+        title: ''
+      },
       pagination: {},
 
-      modal: null,
-      delModal: null,
+      // modal: null,
+      // deleteModal: null,
 
       isNew: false,
       due_date: ''
     }
   },
   components: {
+    DeleteModal,
     PaginationView
   },
   mounted() {
     this.getCoupons()
-    this.modal = new Modal(this.$refs.couponModal)
-    this.delModal = new Modal(this.$refs.delCouponModal)
+    // this.modal = new Modal(this.$refs.couponModal)
+    // this.deleteModal = new Modal(this.$refs.deleteModal)
   },
   methods: {
     // 取得優惠券列表
@@ -273,15 +114,14 @@ export default {
           this.coupons = coupons
           this.pagination = pagination
         })
-        .catch(() => {
-          Toast.fire({
-            title: '無法取得資料',
-            icon: 'error'
+        .catch((err) => {
+          Alert.fire({
+            title: err.response.data.message
           })
         })
     },
 
-    // 開啟優惠券modal/delModal
+    // 開啟優惠券modal/deleteModal
     openModal(status, item) {
       if (status === 'create') {
         this.isNew = true
@@ -294,8 +134,9 @@ export default {
         this.openShow()
         this.tempCoupon = JSON.parse(JSON.stringify(item))
       } else if (status === 'delete') {
-        this.delShow()
-        this.tempCoupon = JSON.parse(JSON.stringify(item))
+        this.$refs.deleteModal.deleteCouponModal.show()
+        this.tempCoupon = {...item}
+        // this.tempCoupon = JSON.parse(JSON.stringify(item))
       }
     },
 
@@ -323,9 +164,8 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          Toast.fire({
-            icon: 'error',
-            title: `請確認資料是否完整`
+          Alert.fire({
+            title: err.response.data.message
           })
         })
     },
@@ -338,7 +178,7 @@ export default {
         .then((res) => {
           console.log('刪除優惠券', res)
           this.getCoupons()
-          this.delHide()
+          this.$refs.deleteModal.deleteCouponModal.hide();
           Toast.fire({
             icon: 'success',
             title: `成功移除優惠券`
@@ -346,9 +186,8 @@ export default {
         })
         .catch((err) => {
           console.log('刪除失敗', err)
-          Toast.fire({
-            icon: 'error',
-            title: `刪除失敗`
+          Alert.fire({
+            title: err.response.data.message
           })
         })
     },
@@ -363,22 +202,22 @@ export default {
     },
 
     // 開啟關閉
-    openShow() {
-      console.log('開啟modal')
-      this.modal.show()
-    },
-    openHide() {
-      console.log('關閉modal')
-      this.modal.hide()
-    },
-    delShow() {
-      console.log('開啟delModal')
-      this.delModal.show()
-    },
-    delHide() {
-      console.log('關閉delModal')
-      this.delModal.hide()
-    }
+    // openShow() {
+    //   console.log('開啟modal')
+    //   this.modal.show()
+    // },
+    // openHide() {
+    //   console.log('關閉modal')
+    //   this.modal.hide()
+    // },
+    // delShow() {
+    //   console.log('開啟deleteModal')
+    //   this.deleteModal.show()
+    // },
+    // delHide() {
+    //   console.log('關閉deleteModal')
+    //   this.deleteModal.hide()
+    // }
   },
   watch: {
     // 時間格式 YYY-MM-DD

@@ -34,14 +34,6 @@
             </div>
 
             <div class="mt-3 d-flex">
-              <!-- 有時間調整 -->
-              <!-- <button type="button" class="rounded-start border-0 px-2">
-                  <span class="material-symbols-outlined text-secondary"> add </span>
-                </button>
-                <input type="text" value="1" class="form-control rounded-0 text-center" />
-                <button type="button" class="rounded-end border-0 px-2">
-                  <span class="material-symbols-outlined text-secondary"> remove </span>
-                </button> -->
               <select id="productNum" class="form-select text-center" v-model="qty">
                 <option for="productNum" :value="i" v-for="i in 20" :key="`${i}productNum`">
                   {{ i }}
@@ -68,7 +60,7 @@
           <span class="section_title_en">Product Infomation</span>
         </div>
         <div class="section_content">
-          <ProductDesInfo></ProductDesInfo>
+          <ProductDesInfo />
         </div>
       </div>
     </section>
@@ -81,7 +73,7 @@
           <span class="section_title_en">Products Recommond</span>
         </div>
         <div class="section_content">
-          <ProductSwiper></ProductSwiper>
+          <ProductSwiper />
         </div>
       </div>
     </section>
@@ -89,18 +81,16 @@
 </template>
 
 <script>
-const { VITE_URL, VITE_PATH } = import.meta.env
-import { mapActions } from 'pinia'
-import ProductDesInfo from '../../components/front/ProductDesInfo.vue'
-import ProductSwiper from '../../components/front/ProductSwiper.vue'
-import cartStore from '../../stores/cartStore'
-
+import { mapActions, mapState } from 'pinia'
+import productStore from '@/stores/productStore'
+import cartStore from '@/stores/cartStore'
+import ProductDesInfo from '@/components/front/ProductDesInfo.vue'
+import ProductSwiper from '@/components/front/ProductSwiper.vue'
 
 export default {
-  data() {
+  data(){
     return {
-      product: {},
-      qty: 1
+      qty: 1,
     }
   },
   components: {
@@ -111,17 +101,21 @@ export default {
     this.getProduct()
   },
   methods: {
-    getProduct() {
-      // console.log(this.$route) // this.$route取得路由資訊
-      // 解構取得 this.$route.params.id
-      const { id } = this.$route.params
-      const url = `${VITE_URL}/api/${VITE_PATH}/product/${id}`
-      this.$http.get(url).then((res) => {
-        console.log('單一商品', res)
-        this.product = res.data.product
-      })
-    },
     ...mapActions(cartStore, ['addToCart']),
+    ...mapActions(productStore, ['getProduct']),
+  },
+  computed: {
+    ...mapState(productStore, ['product']),
+  },
+  watch: {
+    '$route.params': {
+      immediate: true,
+      handler() {
+        if (this.$route.params.id) {
+          this.getProduct()
+        }
+      }
+    }
   }
 }
 </script>

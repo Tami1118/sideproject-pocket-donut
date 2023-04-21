@@ -21,19 +21,19 @@
               class="navbar_button_cart border-0 bg-transparent position-relative"
               @click="logout"
             >
-              <span class="material-symbols-outlined fs-1 text-primary"> account_circle </span>
+              <i class="bi bi-person-circle fs-2 text-primary"></i>
             </button>
             <!-- mobile button menu -->
             <button
               type="button"
-              class="navbar_button_menu border-0 bg-transparent ms-3"
+              class="navbar_button_menu border-0 bg-transparent ms-1"
               data-bs-toggle="collapse"
               data-bs-target="#navbarText"
               aria-controls="navbarText"
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="material-symbols-outlined fs-1 text-primary">menu</span>
+              <i class="bi bi-list text-primary fs-2"></i>
             </button>
           </div>
         </div>
@@ -83,10 +83,9 @@
         </div>
 
         <!-- PC -->
-        <div class="pc d-none d-lg-flex rounded-5 p-1" style="background-color: #fbecec">
-          <button type="button" class="border-0 bg-transparent position-relative" @click="logout">
-            <span class="material-symbols-outlined fs-1 text-primary"> account_circle </span>
-            <span class="text-primary fw-bold ms-1 pe-2">Log Out</span>
+        <div class="pc d-none d-lg-flex">
+          <button type="button" class="d-flex align-items-center border-0 bg-transparent text-primary" @click="logout">
+            <i class="bi bi-person-circle fs-2"></i> <span class="ms-1 fw-bold">Log out</span>
           </button>
         </div>
       </nav>
