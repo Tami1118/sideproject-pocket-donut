@@ -1,15 +1,14 @@
 <template>
-<!-- title, category, unit, price, origin_price必填 -->
   <div class="modal-dialog modal-xl">
-    <div class="modal-content border-0">
-      <div class="modal-header">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
         <h5 class="modal-title">
           {{ isNew ? '新增產品' : '編輯產品' }}
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <VForm v-slot="{ errors }" $emit('update-product', tempProduct)>
+        <VForm v-slot="{ errors }">
           <div class="row">
             <div class="col-12 col-md-4">
               <div class="main-image mt-2">
@@ -177,7 +176,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
         <button type="button" class="btn btn-secondary" @click="reset">重置</button>
-        <button type="button" class="btn btn-primary" @click="updataProduct">
+        <button type="button" class="btn btn-primary" @click="$emit('update-product',updateProduct)">
           {{ isNew ? '新增' : '更新' }}
         </button>
       </div>
@@ -186,30 +185,17 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal'
-
-
 export default {
-  props: ['isNew','openModal'],
-  data() {
+  props: ['product', 'isNew', 'reset'],
+  data(){
     return {
-      tempProduct: {
-        imagesUrl: []
-      },
-      productModal: ''
+      tempProduct: {}
     }
   },
-  mounted() {
-    this.productModal = new Modal(this.$refs.productModal)
-  },
-  methods: {
-    open() {
-      this.productModal.show()
-    },
-    hide() {
-      this.productModal.hide()
-    },
-    getProduct() {}
+  watch: {
+    product(){
+      this.tempProduct = this.product
+    }
   }
 }
 </script>

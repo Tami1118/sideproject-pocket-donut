@@ -51,8 +51,8 @@
           </tbody>
         </table>
       </div>
+      <!-- <PaginationView :pages="pagination" :get-list="getOrders"></PaginationView> -->
     </div>
-    <!-- <PaginationView :pages="pagination" :get-list="getOrders"></PaginationView> -->
   </div>
 
   <!-- orderModal -->
@@ -61,7 +61,7 @@
     ref="orderModal"
     id="orderModal"
     tabindex="-1"
-    aria-labelledby="orderModalLabel"
+    aria-labelledby="modalLabel"
     aria-hidden="true"
   >
     <OrderModal :order="tempOrder" @update-order="updateOrder" />
@@ -100,7 +100,7 @@ export default {
       pagination: {},
       tempOrder: {},
       modal: '',
-      deleteModal: '',
+      deleteModal: ''
     }
   },
   components: {
@@ -115,7 +115,7 @@ export default {
   methods: {
     // 取得訂單列表
     getOrders(pagination = 1) {
-      const url = `${VITE_URL}/api/${VITE_PATH}/admin/orders/?page="${pagination}"`
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/orders/?page=${pagination}`
       this.$http
         .get(url)
         .then((res) => {

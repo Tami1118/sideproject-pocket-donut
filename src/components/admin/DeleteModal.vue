@@ -3,6 +3,7 @@
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title">確定刪除 {{tempItem.id? '':'全部'}} ?</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           刪除後的{{type}}將無法復原，確定要刪除
@@ -24,8 +25,7 @@
 </template>
 
 <script>
-
 export default {
-  props: ['type','tempItem', 'deleteItem','deleteAll'],
+  props: ['type','tempItem', 'deleteItem', 'deleteAll'],
 }
 </script>

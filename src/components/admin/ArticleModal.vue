@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="articleModalLabel">{{ isNew ? '新增文章':'編輯文章'}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container">
@@ -101,7 +101,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" @click="updateArticle">
+        <button type="button" class="btn btn-primary" @click="$emit('update-article',updateArticle)">
           {{ isNew ? '新增' : '更新' }}
         </button>
       </div>
@@ -111,7 +111,7 @@
 
 <script>
 export default {
-  props: ['isNew', 'article','updateArticle'],
+  props: ['article', 'isNew'],
   data(){
     return {
       tempArticle: {}

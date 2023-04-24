@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="articleModalLabel">{{ isNew ? '新增優惠券' : '編輯優惠券' }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container">
@@ -107,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" @click="$emit('update-coupon', tempCoupon)" class="btn btn-primary">
+        <button type="button" @click="$emit('update-coupon', updateCoupon)" class="btn btn-primary">
           {{ isNew ? '新增' : '更新' }}
         </button>
       </div>
@@ -117,7 +117,7 @@
 
 <script>
 export default {
-  props: ['isNew', 'coupon', 'updateCoupon'],
+  props: ['coupon', 'isNew'],
   data() {
     return {
       tempCoupon: {},
