@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="articleModalLabel">{{ isNew ? '新增優惠券' : '編輯優惠券' }}</h5>
@@ -12,7 +12,7 @@
               <div class="col-12">
                 <div class="mb-3">
                   <label class="form-label" for="code">折扣代碼</label>
-                  <span class="text-danger">*</span>
+                  <span class="text-danger"> *</span>
                   <VField
                     type="text"
                     id="code"
@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="title">優惠名稱</label>
-                  <span class="text-danger">*</span>
+                  <span class="text-danger"> *</span>
                   <VField
                     type="text"
                     id="title"
@@ -43,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="dueDate">到期日</label>
-                  <span class="text-danger">*</span>
+                  <span class="text-danger"> *</span>
                   <VField
                     type="date"
                     id="dueDate"
@@ -57,7 +57,7 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label" for="percent">折扣百分比</label>
-                  <span class="text-danger">*</span>
+                  <span class="text-danger"> *</span>
                   <VField
                     type="number"
                     id="percent"
@@ -107,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button class="btn btn-primary" @click="updataCoupon">
+        <button type="button" @click="$emit('update-coupon', tempCoupon)" class="btn btn-primary">
           {{ isNew ? '新增' : '更新' }}
         </button>
       </div>
@@ -120,7 +120,8 @@ export default {
   props: ['isNew', 'coupon', 'updateCoupon'],
   data() {
     return {
-      tempCoupon: {}
+      tempCoupon: {},
+      due_date: '',
     }
   },
   watch: {
@@ -128,8 +129,10 @@ export default {
     coupon() {
       this.tempCoupon = this.coupon
       // toISOString為標準格式字符串; split字串按照T字符串分割
-      const dateAndTime = new Date(this.tempCoupon.due_date * 1000).toISOString().split('T')
-      ;[this.due_date] = dateAndTime
+      const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
+      .toISOString()
+      .split('T');
+      [this.due_date] = dateAndTime;
     },
     due_date() {
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000)

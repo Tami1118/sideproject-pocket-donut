@@ -30,7 +30,7 @@
                   </div>
                   <div class="col-8 px-3 py-4 d-flex flex-column">
                     <h3 class="card-title fs-4 mb-2">{{ item.title }}</h3>
-                    <p class="card_text" v-html="item.description"></p>
+                    <p class="card_text_over_hidden" v-html="item.description"></p>
                     <div class="mt-auto">
                       <!-- {{ item.create_at }} -->2023/04/15
                     </div>
@@ -46,13 +46,7 @@
   </main>
 </template>
 <style lang="scss">
-.card_text {
-  text-align: justify;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-}
+
 </style>
 <script>
 import { mapActions, mapState } from 'pinia'

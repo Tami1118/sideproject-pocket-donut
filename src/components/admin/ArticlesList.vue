@@ -70,8 +70,8 @@
 const { VITE_URL, VITE_PATH } = import.meta.env
 import Modal from 'bootstrap/js/dist/modal'
 import { Toast, Alert } from '@/mixins/swal.js'
-import DeleteArticle from '@/components/admin/DeleteArticle.vue'
 import ArticleModal from '@/components/admin/ArticleModal.vue'
+import DeleteArticle from '@/components/admin/DeleteArticle.vue'
 import PaginationView from '@/components/PaginationView.vue'
 
 export default {
