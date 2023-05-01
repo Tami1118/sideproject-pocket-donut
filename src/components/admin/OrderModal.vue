@@ -3,12 +3,7 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="exampleModalLabel">訂單編輯</h5>
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -18,39 +13,19 @@
               <form class="form">
                 <div class="user_info_item">
                   <label for="orderName" class="form-label">姓名</label>
-                  <input
-                    id="orderName"
-                    class="form-control"
-                    type="text"
-                    :value="tempOrder.user?.name"
-                  />
+                  <input id="orderName" class="form-control" type="text" :value="tempOrder.user?.name" />
                 </div>
                 <div class="user_info_item">
                   <label for="orderTel" class="form-label">聯絡電話</label>
-                  <input
-                    id="orderTel"
-                    class="form-control"
-                    type="text"
-                    :value="tempOrder.user?.tel"
-                  />
+                  <input id="orderTel" class="form-control" type="text" :value="tempOrder.user?.tel" />
                 </div>
                 <div class="user_info_item">
                   <label for="orderEmail" class="form-label">信箱</label>
-                  <input
-                    id="orderEmail"
-                    class="form-control"
-                    type="email"
-                    :value="tempOrder.user?.email"
-                  />
+                  <input id="orderEmail" class="form-control" type="email" :value="tempOrder.user?.email" />
                 </div>
                 <div class="user_info_item">
                   <label for="orderShop" class="form-label">取件門市</label>
-                  <input
-                    id="orderShop"
-                    class="form-control"
-                    type="text"
-                    :value="tempOrder.user?.address"
-                  />
+                  <input id="orderShop" class="form-control" type="text" :value="tempOrder.user?.address" />
                 </div>
               </form>
             </div>
@@ -65,11 +40,11 @@
                 </tr>
                 <tr>
                   <td class="py-2">訂購日期</td>
-                  <td>{{ tempOrder.create_at }}</td>
+                  <td>{{ $format.dateFormat(tempOrder.create_at) }}</td>
                 </tr>
                 <tr>
                   <td class="py-2">付款總額</td>
-                  <td>{{ tempOrder.total }}</td>
+                  <td>{{ $format.priceFormat(tempOrder.total) }}</td>
                 </tr>
                 <tr>
                   <td>付款狀態</td>
@@ -99,18 +74,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    class="admin_item_list"
-                    v-for="product in tempOrder.products"
-                    :key="product.id"
-                  >
+                  <tr class="admin_item_list" v-for="product in tempOrder.products" :key="product.id">
                     <td>
-                      <img
-                        :src="product.product.imageUrl"
-                        class="rounded-3"
-                        style="width: 4rem; height: 4rem; object-fit: cover"
-                        :alt="product.product.title"
-                      />
+                      <img :src="product.product.imageUrl" class="rounded-3" style="width: 4rem; height: 4rem; object-fit: cover" :alt="product.product.title" />
                     </td>
                     <td>{{ product.product.title }}</td>
                     <td>{{ product.product.num }}</td>
@@ -125,9 +91,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-        <button type="button" class="btn btn-primary" @click="$emit('update-order', updateOrder)">
-          更新
-        </button>
+        <button type="button" class="btn btn-primary" @click="$emit('update-order', updateOrder)">更新</button>
       </div>
     </div>
   </div>
