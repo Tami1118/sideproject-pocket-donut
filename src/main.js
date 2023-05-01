@@ -39,11 +39,15 @@ configure({
 });
 setLocale('zh_TW'); // 設定預設語系
 
-
+import { priceFormat, dateFormat } from '@/methods/format.js';
 
 // #2. const要在import後面
 const app = createApp(App)
 
+app.config.globalProperties.$format = {
+  priceFormat,
+  dateFormat
+}
 
 
 // #3. app.use要在createApp(App)後面引入套件
