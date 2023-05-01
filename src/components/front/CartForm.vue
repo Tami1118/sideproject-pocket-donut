@@ -6,16 +6,7 @@
           姓名
           <span class="text-danger">*</span>
         </label>
-        <VField
-          class="form-control"
-          type="text"
-          id="name"
-          placeholder="請輸入姓名"
-          name="姓名"
-          :class="{ 'is-invalid': errors['姓名'] }"
-          rules="required"
-          v-model="data.user.name"
-        />
+        <VField class="form-control" type="text" id="name" placeholder="請輸入姓名" name="姓名" :class="{ 'is-invalid': errors['姓名'] }" rules="required" v-model="data.user.name" />
         <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
       </div>
 
@@ -24,16 +15,7 @@
           Eamil
           <span class="text-danger">*</span>
         </label>
-        <VField
-          class="form-control"
-          type="email"
-          id="email"
-          placeholder="請輸入信箱"
-          name="信箱"
-          :class="{ 'is-invalid': errors['信箱'] }"
-          rules="required|email"
-          v-model="data.user.email"
-        />
+        <VField class="form-control" type="email" id="email" placeholder="請輸入信箱" name="信箱" :class="{ 'is-invalid': errors['信箱'] }" rules="required|email" v-model="data.user.email" />
         <ErrorMessage name="信箱" class="invalid-feedback"></ErrorMessage>
       </div>
 
@@ -42,16 +24,7 @@
           聯絡手機
           <span class="text-danger">*</span>
         </label>
-        <VField
-          class="form-control"
-          type="tel"
-          id="tel"
-          placeholder="請輸入電話"
-          name="電話"
-          :class="{ 'is-invalid': errors['電話'] }"
-          :rules="isPhone"
-          v-model="data.user.tel"
-        />
+        <VField class="form-control" type="tel" id="tel" placeholder="請輸入電話" name="電話" :class="{ 'is-invalid': errors['電話'] }" :rules="isPhone" v-model="data.user.tel" />
         <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
       </div>
 
@@ -60,16 +33,7 @@
           取件分店
           <span class="text-danger">*</span>
         </label>
-        <VField
-          as="select"
-          class="form-select"
-          id="address"
-          placeholder="請輸入地址"
-          name="地址"
-          :class="{ 'is-invalid': errors['地址'] }"
-          rules="required"
-          v-model="data.user.address"
-        >
+        <VField as="select" class="form-select" id="address" placeholder="請輸入地址" name="地址" :class="{ 'is-invalid': errors['地址'] }" rules="required" v-model="data.user.address">
           <option selected>請選擇</option>
           <option value="台北店">台北店</option>
           <option value="桃園店">桃園店</option>
@@ -82,14 +46,7 @@
 
       <div class="form_item mt-3">
         <label class="form-label" for="message">備註</label>
-        <textarea
-          class="form-control"
-          name="message"
-          id="message"
-          rows="5"
-          placeholder="備註"
-          v-model="data.message"
-        ></textarea>
+        <textarea class="form-control" name="message" id="message" rows="5" placeholder="備註" v-model="data.message"></textarea>
       </div>
     </VForm>
 
@@ -97,9 +54,7 @@
 
     <div class="mt-4 d-flex justify-content-between">
       <button type="button" class="btn btn-light text-nowrap" @click="userReset">重置</button>
-      <button type="button" class="btn btn-primary text-nowrap" @click="createOrder">
-        下一步，確認付款
-      </button>
+      <button type="button" class="btn btn-primary text-nowrap" @click="createOrder">下一步，確認付款</button>
     </div>
   </div>
 
