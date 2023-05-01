@@ -21,12 +21,3 @@ export {
   Alert,
   Swal
 }
-
-// mixin 可將多個選項合併，並應用於多個地方使用
-// export default Swal.mixin({
-//   toast: true,
-//   position: 'bottom-end',
-//   showConfirmButton: false,
-//   timer: 1500,
-//   timerProgressBar: true,
-// })
