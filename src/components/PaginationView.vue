@@ -23,6 +23,11 @@
 
 <script>
 export default {
-  props: ['pages', 'getList']
+  props: ['pages'],
+  methods :{
+    getList(page){
+      this.$emit('getList', page)
+    }
+  }
 }
 </script>
